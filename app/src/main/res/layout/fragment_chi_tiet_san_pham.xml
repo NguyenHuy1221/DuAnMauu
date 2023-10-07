@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragment.FragmentChiTietSanPham">
+
+    <ImageView
+        android:id="@+id/img_chiTiet"
+        android:layout_width="wrap_content"
+        android:layout_height="450dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sanpham3" />
+
+    <LinearLayout
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+
+<!--        <ImageView-->
+<!--            android:id="@+id/chiTietGiay1"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/sanpham1" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/chiTietGiay2"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/anhbe1"/>-->
+<!--        <ImageView-->
+<!--            android:id="@+id/chiTietGiay3"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/anhbe3"/>-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên Sản Phẩm : "
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_tenChiTiet"
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên Sản Phẩm "
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá Sản Phẩm : "
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_giaChiTiet"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="70,000đ"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:text="Select Size"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bnt38"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/button_an"
+            app:backgroundTint="@null"
+            android:text="S38"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/bnt39"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/button_an"
+            app:backgroundTint="@null"
+            android:text="S39 "
+            android:textSize="16dp" />
+        <Button
+            android:id="@+id/bnt40"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/button_an"
+            app:backgroundTint="@null"
+            android:text="S40 "
+            android:textSize="16dp" />
+        <Button
+            android:id="@+id/bnt41"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@drawable/button_an"
+            app:backgroundTint="@null"
+            android:text="S41"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/btn_mua"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="#159954"
+            android:src="@drawable/baseline_shopping_cart_24"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+</ScrollView>
