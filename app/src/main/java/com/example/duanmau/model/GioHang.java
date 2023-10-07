@@ -1,32 +1,28 @@
 package com.example.duanmau.model;
 
-public class sanPham {
-
+public class GioHang {
     private int masp;
     private String tensp;
     private int giasp;
     private int soluong;
     private String imagesp;
-    private boolean isInCart;
+    private String size;
 
-    public sanPham(int masp, String tensp, int giasp,int soluong ,String imagesp) {
+    public GioHang(int masp, String tensp, int giasp, int soluong, String imagesp, String size) {
         this.masp = masp;
         this.tensp = tensp;
         this.giasp = giasp;
         this.soluong = soluong;
         this.imagesp = imagesp;
-        this.isInCart = false;
+        this.size = size;
     }
 
-    public sanPham(){
-
-    }
-
-    public sanPham(String tensp, int giasp, int soluong, String imagesp) {
+    public GioHang(String tensp, int giasp, int soluong, String imagesp, String size) {
         this.tensp = tensp;
         this.giasp = giasp;
         this.soluong = soluong;
         this.imagesp = imagesp;
+        this.size = size;
     }
 
     public int getMasp() {
@@ -53,14 +49,6 @@ public class sanPham {
         this.giasp = giasp;
     }
 
-    public String getImagesp() {
-        return imagesp;
-    }
-
-    public void setImagesp(String imagesp) {
-        this.imagesp = imagesp;
-    }
-
     public int getSoluong() {
         return soluong;
     }
@@ -69,11 +57,19 @@ public class sanPham {
         this.soluong = soluong;
     }
 
-    public boolean isInCart() {
-        return isInCart;
+    public String getImagesp() {
+        return imagesp;
     }
 
-    public void setInCart(boolean inCart) {
-        isInCart = inCart;
+    public void setImagesp(String imagesp) {
+        this.imagesp = imagesp;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }

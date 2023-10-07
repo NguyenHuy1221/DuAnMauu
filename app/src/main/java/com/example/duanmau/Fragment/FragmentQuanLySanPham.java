@@ -115,16 +115,80 @@ public class FragmentQuanLySanPham extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String tenSP = edtTen.getText().toString().trim();
-                String giaSP = edtGia.getText().toString().trim();
-                String soLuong = edtSoLuong.getText().toString().trim();
+//                String tenSP = edtTen.getText().toString().trim();
+//                String giaSP = edtGia.getText().toString().trim();
+//                String soLuong = edtSoLuong.getText().toString().trim();
+//
+//
+//                if(tenSP.isEmpty() || giaSP.isEmpty() || soLuong.isEmpty()) {
+//                    Toast.makeText(getContext(), "Vui Lòng Nhập Đủ Dữ Liệu", Toast.LENGTH_SHORT).show();
+//                }else {
+//                    sanPham mSanPham = new sanPham(tenSP,giaSP,soLuong,linkHinh);
+//                    boolean check = sanPhamDAO.addSP(mSanPham);
+//                    if (check){
+//                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
+//                        ArrayList<sanPham> capnhat = sanPhamDAO.getDS();
+//                        sanPhamAdapter.updatelist(capnhat);
+//                        dialog.dismiss();
+//                    }else {
+//                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+
+                String tenSP = edtTen.getText().toString();
+                String giaSP = edtGia.getText().toString();
+                String soLuong = edtSoLuong.getText().toString();
 
 
-                if(tenSP.isEmpty() || giaSP.isEmpty() || soLuong.isEmpty()) {
+                String regexTen = "[^\\d]{1,}";
+                String regexGia = "\\d{1,}";
+                String regexSoLuong = "\\d{1,}";
+
+                if(soLuong.isEmpty()&&tenSP.isEmpty()&&giaSP.isEmpty()) {
                     Toast.makeText(getContext(), "Vui Lòng Nhập Đủ Dữ Liệu", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // kiểm tra tên
+                if (tenSP.equals("")){
+                    Toast.makeText(getContext(), "Chưa Nhập Tên Sản Phẩm", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (tenSP.matches(regexTen)){
+
                 }else {
-                    sanPham mSanPham = new sanPham(tenSP,giaSP,soLuong,linkHinh);
-                    boolean check = sanPhamDAO.addSP(mSanPham);
+                    Toast.makeText(getContext(), "Tên Không Hợp Lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //kiểm  tra số lượng
+                if (soLuong.equals("")){
+                    Toast.makeText(getContext(), "Chưa Nhập Số Lượng Sản Phẩm", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (soLuong.matches(regexSoLuong)) {
+                    int soluongInt = Integer.parseInt(soLuong);
+                    if (soluongInt <= 0){
+                        Toast.makeText(getContext(), "Nhập Số Lượng không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }else {
+                    Toast.makeText(getContext(), "Nhập Số Lượng không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // kiểm tra giá
+                if (giaSP.equals("")){
+                    Toast.makeText(getContext(), "Chưa Nhập Giá Sản Phẩm", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (giaSP.matches(regexGia)) {
+                    int soluongInt = Integer.parseInt(giaSP);
+                    if (soluongInt <= 0){
+                        Toast.makeText(getContext(), "Giá Không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }else {
+                    Toast.makeText(getContext(), "Giá Không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                sanPham mSanPham = new sanPham(tenSP, Integer.parseInt(giaSP), Integer.parseInt(soLuong),linkHinh);
+                boolean check = sanPhamDAO.addSP(mSanPham);
                     if (check){
                         Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
                         ArrayList<sanPham> capnhat = sanPhamDAO.getDS();
@@ -133,7 +197,8 @@ public class FragmentQuanLySanPham extends Fragment {
                     }else {
                         Toast.makeText(getContext(), "Thêm Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
                     }
-                }
+
+
             }
         });
 

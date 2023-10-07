@@ -23,6 +23,8 @@ import com.example.duanmau.DAO.sanPhamDAO;
 import com.example.duanmau.R;
 import com.example.duanmau.model.sanPham;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +59,14 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
     public void onBindViewHolder(@NonNull sanPhamAdapter.ViewHolder holder, int position) {
 
         holder.tensp.setText(listSP.get(position).getTensp());
-        holder.giasp.setText(listSP.get(position).getGiasp()+"");
+//        holder.giasp.setText(listSP.get(position).getGiasp()+"");
+
+        NumberFormat numberFormat = new DecimalFormat("#,###");
+        double mNumer = listSP.get(position).getGiasp();
+        String formattnumber = numberFormat.format(mNumer);
+        holder.giasp.setText(formattnumber + " đ");
+
+
         holder.soluong.setText(listSP.get(position).getSoluong()+"");
 
         // xử lí hhinhf ảnh
@@ -133,15 +142,85 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                int masp = MsanPham.getMasp();
+//                String tensp = edtTen.getText().toString().trim();
+//                String solg = edtSoLuong.getText().toString().trim();
+//                String giasp = edtGia.getText().toString().trim();
+//
+//                if (tensp.isEmpty()||solg.isEmpty()||giasp.isEmpty()){
+//                    Toast.makeText(context, "Vui Lòng Nhập Đủ Thông Tin", Toast.LENGTH_SHORT).show();
+//                }else {
+//                    sanPham sp = new sanPham(masp,tensp,giasp,solg,"");
+//                    boolean check = sanPhamDAO.updateSP(sp);
+//                    if (check){
+//                        Toast.makeText(context, "Sủa Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
+//                        ArrayList<sanPham> capnhap = sanPhamDAO.getDS();
+//                        updatelist(capnhap);
+//                        dialog.dismiss();
+//                    }else {
+//                        Toast.makeText(context, "Sủa Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+
                 int masp = MsanPham.getMasp();
                 String tensp = edtTen.getText().toString().trim();
                 String solg = edtSoLuong.getText().toString().trim();
                 String giasp = edtGia.getText().toString().trim();
 
-                if (tensp.isEmpty()||solg.isEmpty()||giasp.isEmpty()){
-                    Toast.makeText(context, "Vui Lòng Nhập Đủ Thông Tin", Toast.LENGTH_SHORT).show();
+
+                String regexTen = "[^\\d]{1,}";
+                String regexGia = "\\d{1,}";
+                String regexSoLuong = "\\d{1,}";
+
+                if(tensp.isEmpty()&&solg.isEmpty()&&giasp.isEmpty()) {
+                    Toast.makeText(context, "Vui Lòng Nhập Đủ Dữ Liệu", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // kiểm tra tên
+                if (tensp.equals("")){
+                    Toast.makeText(context, "Chưa Nhập Tên Sản Phẩm", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (tensp.matches(regexTen)){
+
                 }else {
-                    sanPham sp = new sanPham(masp,tensp,giasp,solg,"");
+                    Toast.makeText(context, "Tên Không Hợp Lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //kiểm  tra số lượng
+                if (solg.equals("")){
+                    Toast.makeText(context, "Chưa Nhập Số Lượng Sản Phẩm", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (solg.matches(regexSoLuong)) {
+                    int soluongInt = Integer.parseInt(solg);
+                    if (soluongInt <= 0){
+                        Toast.makeText(context, "Nhập Số Lượng không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }else {
+                    Toast.makeText(context, "Nhập Số Lượng không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // kiểm tra giá
+                if (giasp.equals("")){
+                    Toast.makeText(context, "Chưa Nhập Giá Sản Phẩm", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (giasp.matches(regexGia)) {
+                    int soluongInt = Integer.parseInt(giasp);
+                    if (soluongInt <= 0){
+                        Toast.makeText(context, "Giá Không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }else {
+                    Toast.makeText(context, "Giá Không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+//                sanPham.setTensp(tensp);
+//                sanPham.setSoluong(Integer.parseInt(solg));
+//                sanPham.setGiasp(Integer.parseInt(giasp));
+//                sanPham.setMaanh(anh);
+
+                sanPham sp = new sanPham(masp,tensp,Integer.parseInt(giasp),Integer.parseInt(solg),"");
                     boolean check = sanPhamDAO.updateSP(sp);
                     if (check){
                         Toast.makeText(context, "Sủa Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
@@ -151,7 +230,8 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
                     }else {
                         Toast.makeText(context, "Sủa Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
                     }
-                }
+
+
             }
         });
 

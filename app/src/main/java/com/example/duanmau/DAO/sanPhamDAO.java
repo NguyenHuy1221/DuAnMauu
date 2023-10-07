@@ -25,7 +25,7 @@ public class sanPhamDAO {
         if (cursor.getCount() >0) {
             cursor.moveToFirst();
             do {
-                listSP.add(new sanPham(cursor.getInt(0), cursor.getString(1), cursor.getString(2),cursor.getString(3) ,cursor.getString(4) ));
+                listSP.add(new sanPham(cursor.getInt(0), cursor.getString(1), cursor.getInt(2),cursor.getInt(3) ,cursor.getString(4) ));
 
             }while (cursor.moveToNext());
         }

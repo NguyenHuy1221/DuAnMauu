@@ -1,36 +1,41 @@
 package com.example.duanmau.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.duanmau.Adapter.GioHangAdapter;
+import com.example.duanmau.DAO.GioHangDao;
 import com.example.duanmau.R;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.example.duanmau.TotalPriceUpdateListener;
+import com.example.duanmau.model.GioHang;
+import com.example.duanmau.model.KhachHang;
+import com.example.duanmau.model.sanPham;
+
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
-public class FragmentThanhToan extends Fragment {
+public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListener {
 
+    TextView tongtien;
     Button btnXacNhan;
     Button btnTiepTuc;
     private RecyclerView recyclerViewMua;
+    private GioHangAdapter gioHangAdapter;
+    private List<GioHang> gioHangList;
+    private GioHangDao gioHangDao;
 
     private EditText nameKH;
     private EditText phoneKH;
@@ -44,15 +49,21 @@ public class FragmentThanhToan extends Fragment {
         btnXacNhan = view.findViewById(R.id.btnXacNhanThanhToan);
         recyclerViewMua = view.findViewById(R.id.rcv_thanhtoan);
         btnTiepTuc = view.findViewById(R.id.tieptuc);
-
+        tongtien = view.findViewById(R.id.tv_tongTien);
         nameKH = view.findViewById(R.id.edt_nameKH);
         phoneKH = view.findViewById(R.id.edt_phoneKH);
         address = view.findViewById(R.id.edt_address);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1);
+        gioHangDao = new GioHangDao(getContext());
+
+        gioHangList = gioHangDao.getDS();
+        ArrayList<GioHang> listGH = gioHangDao.getDS();
+        updateTotalPrice();
+
+        gioHangAdapter = new GioHangAdapter(getContext(),listGH,gioHangDao);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerViewMua.setLayoutManager(gridLayoutManager);
-//        hoaDonAdapter = new HoaDonAdapter(getContext(),listSP,database);
-//        recyclerViewMua.setAdapter(hoaDonAdapter);
+        recyclerViewMua.setAdapter(gioHangAdapter);
 
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +72,9 @@ public class FragmentThanhToan extends Fragment {
                 String name = nameKH.getText().toString();
                 String phone = phoneKH.getText().toString();
                 String addres = address.getText().toString();
+
+                KhachHang khachHang = new KhachHang(name,phone,addres);
+
 
                 Fragment_Trang_Chu fragmentTrangChu = new Fragment_Trang_Chu();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -144,5 +158,31 @@ public class FragmentThanhToan extends Fragment {
 //        return (int) new Date().getTime();
 //    }
 
+    private void updateTotalPrice() {
+        int totalPrice = 0;
 
+        // Lặp qua danh sách sản phẩm trong giỏ hàng
+        for (GioHang gioHang : gioHangList) {
+            int giaSanPham = gioHang.getGiasp();
+            int soLuong = gioHang.getSoluong();
+            totalPrice += giaSanPham * soLuong;
+        }
+
+        // Định dạng số tiền và hiển thị trong TextView
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        String formattedTotalPrice = formatter.format(totalPrice);
+        tongtien.setText("Tổng tiền : " +formattedTotalPrice+" đ");
+    }
+
+
+    @Override
+    public void onUpdateTotalPrice(int newTotalPrice) {
+        updateTotalPriceTextView(newTotalPrice);
+    }
+
+    private void updateTotalPriceTextView(int newTotalPrice) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        String formattedTotalPrice = formatter.format(newTotalPrice);
+        tongtien.setText("Tổng tiền : " + formattedTotalPrice + " đ");
+    }
 }

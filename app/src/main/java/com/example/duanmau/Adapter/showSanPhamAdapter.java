@@ -16,6 +16,8 @@ import com.example.duanmau.R;
 import com.example.duanmau.model.sanPham;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 public class showSanPhamAdapter extends RecyclerView.Adapter<showSanPhamAdapter.ViewHolder> {
@@ -52,10 +54,15 @@ public class showSanPhamAdapter extends RecyclerView.Adapter<showSanPhamAdapter.
         holder.mSanPham = mListSP.get(position);
 
         sanPham sanPhamList =mListSP.get(position);
+
+
         String imageUrl = sanPhamList.getImagesp();
         Glide.with(mContext).load(imageUrl).into(holder.imgSP);
         holder.tenSP.setText(sanPhamList.getTensp());
-        holder.giaSP.setText(sanPhamList.getGiasp());
+        NumberFormat numberFormat = new DecimalFormat("#,###");
+        double mNumer = mListSP.get(position).getGiasp();
+        String formattnumber = numberFormat.format(mNumer);
+        holder.giaSP.setText(formattnumber + " đ");
 
     }
 

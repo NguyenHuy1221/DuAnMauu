@@ -12,10 +12,13 @@ import androidx.fragment.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.duanmau.Fragment.FragmentQuanLySanPham;
 import com.example.duanmau.Fragment.FragmentQuanLyTaiKhoan;
+import com.example.duanmau.Fragment.FragmentThanhToan;
 import com.example.duanmau.Fragment.Fragment_Trang_Chu;
 import com.example.duanmau.Fragment.ThuongHieuFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -26,6 +29,7 @@ public class Navigation_Drawer extends AppCompatActivity {
     private NavigationView mNavigationView;
 
     private Toolbar mToolbar;
+    private ImageView cart;
 
     private final int PERMISSION_CODE = 1;
 
@@ -37,7 +41,7 @@ public class Navigation_Drawer extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawerlayout);
         mNavigationView = findViewById(R.id.navigation);
         mToolbar = findViewById(R.id.toolbar);
-
+        cart = findViewById(R.id.icCart);
         requestPermission();
 
         // toolbar
@@ -53,6 +57,15 @@ public class Navigation_Drawer extends AppCompatActivity {
                 .replace(R.id.layout_navigation,new Fragment_Trang_Chu())
                 .commit();
 
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.layout_navigation,new FragmentThanhToan())
+                        .commit();
+            }
+        });
 
         //sự kien khi ấn vào item tương ứng
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

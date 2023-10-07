@@ -128,7 +128,7 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
         Bundle bundle = new Bundle();
         bundle.putString("image",mSanPham.getImagesp());
         bundle.putString("tensp",mSanPham.getTensp());
-        bundle.putString("giasp", mSanPham.getGiasp());
+        bundle.putInt("giasp", mSanPham.getGiasp());
         fragmentChiTietSanPham.setArguments(bundle);
 
 

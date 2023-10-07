@@ -20,13 +20,14 @@
                 android:layout_height="wrap_content"/>
 
             <ImageView
+                android:id="@+id/icCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/ic_bell" />
+                android:src="@drawable/ic_cart" />
         </RelativeLayout>
 
 
