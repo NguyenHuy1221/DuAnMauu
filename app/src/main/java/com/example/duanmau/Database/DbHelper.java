@@ -33,10 +33,25 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO KHACH_HANG VALUES (1,'Nguyen Quang Huy','123456789','DakLak'),(2,'Ho Duc Hau','5675689','BMT')");
 
         // nhan vien
-        String qlNhanVien = "CREATE TABLE NHAN_VIEN(idnhanvien INTEGER PRIMARY KEY AUTOINCREMENT,tennhanvien TEXT,sdt TEXT,diachi TEXT,ngayvaolam TEXT,trangthai TEXT)";
+        String qlNhanVien = "CREATE TABLE NHAN_VIEN(idnhanvien INTEGER PRIMARY KEY AUTOINCREMENT,tennhanvien TEXT,imagesp TEXT,sdt TEXT,diachi TEXT,ngayvaolam TEXT,idchucvu INTEGER,trangthai INTEGER,FOREIGN KEY (idchucvu) REFERENCES CHUC_VU(idchucvu))";
         db.execSQL(qlNhanVien);
         //data nhan vien
-        db.execSQL("INSERT INTO NHAN_VIEN VALUES (1,'LE THI NO','67887655','GIALAI','11/12/2022','hoat dong'),(2,'PHAM VAN D','443212','HN','11/07/2023','hoat dong')");
+        db.execSQL("INSERT INTO NHAN_VIEN VALUES (1,'LE THI NO','','67887655','GIALAI','11/12/2022',2,1),(2,'PHAM VAN DO','','443212','HN','11/07/2023',2,1)");
+
+
+        //tai khoan
+        String qltaikhoan = "CREATE TABLE TAI_KHOAN(idtaikhoan INTEGER PRIMARY KEY AUTOINCREMENT,idnhanvien INTEGER,gmail TEXT,matkhau TEXT, FOREIGN KEY (idnhanvien) REFERENCES NHAN_VIEN(idnhanvien))";
+        db.execSQL(qltaikhoan);
+        db.execSQL("INSERT INTO TAI_KHOAN VALUES (1,1,'lethino@gmail.com','no123123'),(2,2,'phanthanhdo@gmail.com','do123123')");
+
+        //chuc vu
+        String chucvu = "CREATE TABLE CHUC_VU(idchucvu INTEGER PRIMARY KEY AUTOINCREMENT,tenchucvu TEXT)";
+        db.execSQL(chucvu);
+        db.execSQL("INSERT INTO CHUC_VU VALUES (1,'admin'),(2,'Nhân viên')");
+
+
+
+
 
         // hoa don
         String qlHoaDon = "CREATE TABLE HOA_DON(idhoadon INTEGER PRIMARY KEY AUTOINCREMENT,idkhachhang INTEGER REFERENCES KHACH_HANG(idkhachhang),idnhanvien INTEGER REFERENCES NHAN_VIEN(idnhanvien) ,ngay TEXT,tongtien TEXT)";

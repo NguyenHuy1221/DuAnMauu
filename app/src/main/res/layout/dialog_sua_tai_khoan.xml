@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Thêm tài khoản cho nhân viên"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Nhập ID nhân viên Để thêm"
+        />
+    <EditText
+        android:id="@+id/them_id_tk"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:hint="0123 "
+        android:background="@drawable/khung_vien"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Nhập gmail thêm"
+        />
+    <EditText
+        android:id="@+id/them_gmail_tk"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="abc@gmail.com "
+        android:textSize="14dp"
+        android:background="@drawable/khung_vien"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Nhập mật khẩu tài khoản"
+        />
+    <EditText
+        android:id="@+id/them_mk_tk"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="***** "
+        android:textSize="14dp"
+        android:background="@drawable/khung_vien"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Nhập lại mật khẩu"
+        />
+    <EditText
+        android:id="@+id/nhap_lai_mk"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="***** "
+        android:textSize="14dp"
+        android:background="@drawable/khung_vien"/>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btn_Thoat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thoát"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_bottom_red"
+            app:backgroundTint="@null"
+            />
+        <Button
+            android:id="@+id/btn_Luu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_bottom"
+            app:backgroundTint="@null"
+            />
+    </LinearLayout>
+
+</LinearLayout>
