@@ -1,12 +1,14 @@
 package com.example.duanmau.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,11 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duanmau.Adapter.GioHangAdapter;
 import com.example.duanmau.DAO.GioHangDao;
+import com.example.duanmau.DAO.HoaDonDao;
+import com.example.duanmau.DAO.KhachHangDao;
 import com.example.duanmau.R;
 import com.example.duanmau.TotalPriceUpdateListener;
 import com.example.duanmau.model.GioHang;
+import com.example.duanmau.model.HoaDon;
 import com.example.duanmau.model.KhachHang;
+import com.example.duanmau.model.NhanVien;
 import com.example.duanmau.model.sanPham;
+import com.google.firebase.Timestamp;
 
 
 import java.text.DecimalFormat;
@@ -40,6 +47,8 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
     private EditText nameKH;
     private EditText phoneKH;
     private EditText address;
+    private KhachHangDao khachHangDao;
+    private HoaDonDao hoaDonDao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +63,8 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
         phoneKH = view.findViewById(R.id.edt_phoneKH);
         address = view.findViewById(R.id.edt_address);
 
+        khachHangDao = new KhachHangDao(getContext());
+        hoaDonDao = new HoaDonDao(getContext());
         gioHangDao = new GioHangDao(getContext());
 
         gioHangList = gioHangDao.getDS();
@@ -68,13 +79,6 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String name = nameKH.getText().toString();
-                String phone = phoneKH.getText().toString();
-                String addres = address.getText().toString();
-
-                KhachHang khachHang = new KhachHang(name,phone,addres);
-
 
                 Fragment_Trang_Chu fragmentTrangChu = new Fragment_Trang_Chu();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -111,23 +115,55 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
 //        TextView txtTongTien = view.findViewById(R.id.txtTongTien);
 //        txtTongTien.setText("Tổng tiền: " + formatTien(tongTien) + " ₫");
 
-//        btnXacNhan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                sendNotification();
+        btnXacNhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                sendNotification();
 //                Intent intent = new Intent(getContext(), ThanhToanThanhCong.class);
 //                startActivity(intent);
-//            }
-//        });
+                String name = nameKH.getText().toString();
+                String phone = phoneKH.getText().toString();
+                String addres = address.getText().toString();
+
+                KhachHang khachHang = new KhachHang(name,phone,addres);
+
+                long khachHangId = khachHangDao.insertKhachHang(khachHang);
+
+                // Lấy danh sách các tên sản phẩm từ Adapter
+                List<String> tenSanPhamList = gioHangAdapter.getTenSanPhamList();
+
+
+                if (khachHangId != -1){
+
+                    Toast.makeText(getContext(), "Thêm khách hàng thành công", Toast.LENGTH_SHORT).show();
+                    HoaDon hoaDon = new HoaDon();
+                    hoaDon.setIdkhachhang((int) khachHangId);
+                    hoaDon.setIdnhanvien(1);
+                    java.util.Date currentDate = new java.util.Date();
+                    java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDate.getTime());
+                    hoaDon.setNgay(String.valueOf(timestamp));
+                    hoaDon.setTongtien(updateTotalPrice());
+                    // Truyền danh sách tên sản phẩm vào hóa đơn
+//                    hoaDon.setTenSanPhamList(tenSanPhamList);
+
+                    boolean ktHD = hoaDonDao.themHoaDon(hoaDon);
+                    if (ktHD){
+                        Toast.makeText(getContext(), "Oke", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(), "Nooke", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getContext(), "Thêm khách hàng thất bại", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         return view;
     }
 
 
-    private String formatTien(int tien) {
-        DecimalFormat formatter = new DecimalFormat("###,###,###");
-        return formatter.format(tien);
-    }
+
 //
 //    private void sendNotification() {
 //        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),anhSanPham);
@@ -158,7 +194,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
 //        return (int) new Date().getTime();
 //    }
 
-    private void updateTotalPrice() {
+    private String updateTotalPrice() {
         int totalPrice = 0;
 
         // Lặp qua danh sách sản phẩm trong giỏ hàng
@@ -172,6 +208,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         String formattedTotalPrice = formatter.format(totalPrice);
         tongtien.setText("Tổng tiền : " +formattedTotalPrice+" đ");
+        return formattedTotalPrice;
     }
 
 
@@ -185,4 +222,5 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
         String formattedTotalPrice = formatter.format(newTotalPrice);
         tongtien.setText("Tổng tiền : " + formattedTotalPrice + " đ");
     }
+
 }
