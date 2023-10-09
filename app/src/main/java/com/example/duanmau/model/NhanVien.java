@@ -20,7 +20,6 @@ public class NhanVien {
 
     public NhanVien(){
 
-
     }
 
     public NhanVien(int idnhanvien, String imagenhanvien, String tennhanvien, int sodienthoai, String diachi, String ngayvaolam, int idchucvu, int trangthai, String chucvu) {
