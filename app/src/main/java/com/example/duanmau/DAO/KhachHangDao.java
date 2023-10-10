@@ -14,25 +14,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KhachHangDao {
-    private SQLiteDatabase database;
     private DbHelper dbHelper;
 
     public KhachHangDao(Context context) {
         dbHelper = new DbHelper(context);
     }
 
+//    public boolean insertKhachHang(KhachHang khachHang) {
+//        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("tenkhachhang", khachHang.getTenkhachhang());
+//        values.put("sdt", khachHang.getSdt());
+//        values.put("diachi", khachHang.getDiachi());
+//
+//        long check = sqLiteDatabase.insert("KHACH_HANG",null,values);
+//        if (check == -1){
+//            return false;
+//        }
+//        return true;
+//    }
 
-    // Thêm một khách hàng vào cơ sở dữ liệu và trả về ID của khách hàng đã thêm
+
     public long insertKhachHang(KhachHang khachHang) {
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("name", khachHang.getTenkhachhang());
-        values.put("phone", khachHang.getSdt());
-        values.put("address", khachHang.getDiachi());
+        values.put("tenkhachhang", khachHang.getTenkhachhang());
+        values.put("sdt", khachHang.getSdt());
+        values.put("diachi", khachHang.getDiachi());
 
-        return database.insert("KHACH_HANG", null, values);
+        long khachHangId = sqLiteDatabase.insert("KHACH_HANG", null, values);
+
+        return khachHangId;
     }
 
-    // Lấy danh sách tất cả khách hàng từ cơ sở dữ liệu
     public List<KhachHang> getAllKhachHang() {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         ArrayList<KhachHang> listsp = new ArrayList<>();

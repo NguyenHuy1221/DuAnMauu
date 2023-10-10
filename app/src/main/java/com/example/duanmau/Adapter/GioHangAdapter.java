@@ -141,6 +141,14 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
         }
     }
 
+    public List<String> getTenSanPhamList() {
+        List<String> tenSanPhamList = new ArrayList<>();
+        for (GioHang gioHang : listsp) {
+            tenSanPhamList.add(gioHang.getTensp());
+        }
+        return tenSanPhamList;
+    }
+
     private void deleteDialog(String tensp, int id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Cảnh Báo ");
