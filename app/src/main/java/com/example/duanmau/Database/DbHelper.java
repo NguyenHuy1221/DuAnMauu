@@ -60,7 +60,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO HOA_DON VALUES (1,1,1,'03/10/2023','3000000'),(2,2,2,'10/09/2023','6000000')");
 
         // chi tiet hoa don
-        String ctHoaDon = "CREATE TABLE CTHD(idcthd INTEGER PRIMARY KEY AUTOINCREMENT,masp INTEGER REFERENCES SAN_PHAM(masp),idhoadon INTEGER REFERENCES HOA_DON(idhoadon),soluong INTEGER,dongia REAL)";
+        String ctHoaDon = "CREATE TABLE CTHD(idcthd INTEGER PRIMARY KEY AUTOINCREMENT,masp INTEGER REFERENCES SPDC(masp),idhoadon INTEGER REFERENCES HOA_DON(idhoadon),soluong INTEGER,dongia REAL)";
         db.execSQL(ctHoaDon);
         //data cthd
         db.execSQL("INSERT INTO CTHD VALUES(1,1,1,2,300),(2,2,2,3,600)");

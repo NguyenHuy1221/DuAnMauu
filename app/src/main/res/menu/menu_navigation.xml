@@ -3,22 +3,35 @@
 
     <item
         android:id="@+id/menu_home"
-        android:title="Home"
+        android:title="Trang chủ"
         android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/menu_ql_SP"
         android:title="Quản Lý sản phẩm"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/ic_mat"/>
     <item
         android:id="@+id/menu_ql_TH"
         android:title="Quản Lý Thương Hiệu"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/ic_mat"/>
     <item
         android:id="@+id/menu_ql_tk"
         android:title="Quản lý tài khoản"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/ic_people"/>
 
-
+    <group android:checkableBehavior="single">
+        <item android:title="Khác">
+            <menu>
+                <item
+                    android:id="@+id/setting"
+                    android:title="Cài Đặt"
+                    android:icon="@drawable/ic_setting"/>
+                <item
+                    android:id="@+id/logout"
+                    android:title="Đăng Xuất"
+                    android:icon="@drawable/ic_logout"/>
+            </menu>
+        </item>
+    </group>
 
 
 </menu>

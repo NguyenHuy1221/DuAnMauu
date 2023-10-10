@@ -76,4 +76,17 @@ public class sanPham {
     public void setInCart(boolean inCart) {
         isInCart = inCart;
     }
+
+    // Phương thức kiểm tra số lượng tồn kho
+    public boolean isAvailable(int quantity) {
+        return this.soluong >= quantity;
+    }
+
+    // Phương thức giảm số lượng tồn kho sau khi mua hàng
+    public void reduceStock(int quantity) {
+        if (isAvailable(quantity)) {
+            this.soluong -= quantity;
+        }
+    }
+
 }

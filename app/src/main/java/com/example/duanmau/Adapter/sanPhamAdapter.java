@@ -58,16 +58,16 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull sanPhamAdapter.ViewHolder holder, int position) {
 
-        holder.tensp.setText(listSP.get(position).getTensp());
+        holder.tensp.setText("Tên SP: "+listSP.get(position).getTensp());
 //        holder.giasp.setText(listSP.get(position).getGiasp()+"");
 
         NumberFormat numberFormat = new DecimalFormat("#,###");
         double mNumer = listSP.get(position).getGiasp();
         String formattnumber = numberFormat.format(mNumer);
-        holder.giasp.setText(formattnumber + " đ");
+        holder.giasp.setText("Giá: " +formattnumber + " đ");
 
 
-        holder.soluong.setText(listSP.get(position).getSoluong()+"");
+        holder.soluong.setText("Số lượng: "+listSP.get(position).getSoluong());
 
         // xử lí hhinhf ảnh
         Glide.with(context).load(listSP.get(position).getImagesp()).into(holder.imgsp);

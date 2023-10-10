@@ -28,9 +28,7 @@ public class GioHangDao {
         if (cursor.getCount()>0){
             cursor.moveToFirst();
             do {
-
                 listsp.add(new GioHang(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5)));
-
             }while (cursor.moveToNext());
         }
         return listsp;

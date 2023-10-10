@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.duanmau.Adapter.GioHangAdapter;
+import com.example.duanmau.DAO.ChiTietHoaDonDao;
 import com.example.duanmau.DAO.GioHangDao;
 import com.example.duanmau.DAO.HoaDonDao;
 import com.example.duanmau.DAO.KhachHangDao;
 import com.example.duanmau.R;
 import com.example.duanmau.TotalPriceUpdateListener;
+import com.example.duanmau.model.ChiTietHoaDon;
 import com.example.duanmau.model.GioHang;
 import com.example.duanmau.model.HoaDon;
 import com.example.duanmau.model.KhachHang;
@@ -49,6 +51,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
     private EditText address;
     private KhachHangDao khachHangDao;
     private HoaDonDao hoaDonDao;
+    private ChiTietHoaDonDao chiTietHoaDonDao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +69,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
         khachHangDao = new KhachHangDao(getContext());
         hoaDonDao = new HoaDonDao(getContext());
         gioHangDao = new GioHangDao(getContext());
+        chiTietHoaDonDao = new ChiTietHoaDonDao(getContext());
 
         gioHangList = gioHangDao.getDS();
         ArrayList<GioHang> listGH = gioHangDao.getDS();
@@ -124,17 +128,11 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                 String name = nameKH.getText().toString();
                 String phone = phoneKH.getText().toString();
                 String addres = address.getText().toString();
-
                 KhachHang khachHang = new KhachHang(name,phone,addres);
-
                 long khachHangId = khachHangDao.insertKhachHang(khachHang);
-
-                // Lấy danh sách các tên sản phẩm từ Adapter
-                List<String> tenSanPhamList = gioHangAdapter.getTenSanPhamList();
 
 
                 if (khachHangId != -1){
-
                     Toast.makeText(getContext(), "Thêm khách hàng thành công", Toast.LENGTH_SHORT).show();
                     HoaDon hoaDon = new HoaDon();
                     hoaDon.setIdkhachhang((int) khachHangId);
@@ -143,12 +141,33 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                     java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDate.getTime());
                     hoaDon.setNgay(String.valueOf(timestamp));
                     hoaDon.setTongtien(updateTotalPrice());
-                    // Truyền danh sách tên sản phẩm vào hóa đơn
-//                    hoaDon.setTenSanPhamList(tenSanPhamList);
 
-                    boolean ktHD = hoaDonDao.themHoaDon(hoaDon);
-                    if (ktHD){
+                    long ktHD = hoaDonDao.themHoaDon(hoaDon);
+                    int totalPrice = 0;
+                    if (ktHD != -1){
                         Toast.makeText(getContext(), "Oke", Toast.LENGTH_SHORT).show();
+                        List<GioHang> gioHangList = gioHangDao.getDS();
+                        for(GioHang gioHang: gioHangList){
+                            int idsp = gioHang.getMasp();
+                            int mahd = (int) ktHD;
+                            int soluong = gioHang.getSoluong();
+                            int giaSanPham = gioHang.getGiasp();
+                            int soLuong = gioHang.getSoluong();
+                            int thanhTien = giaSanPham * soLuong;
+                            totalPrice += thanhTien;
+
+                            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
+                            chiTietHoaDon.setIdhoadon(mahd);
+                            chiTietHoaDon.setMasp(idsp);
+                            chiTietHoaDon.setSoluong(soluong);
+                            chiTietHoaDon.setDongia(thanhTien);
+                            long themCTHD = chiTietHoaDonDao.themChiTietHoaDon(chiTietHoaDon);
+                            if (themCTHD != -1) {
+                                Toast.makeText(getContext(), " oke haha", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "chưa oke huhu", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }else {
                         Toast.makeText(getContext(), "Nooke", Toast.LENGTH_SHORT).show();
                     }

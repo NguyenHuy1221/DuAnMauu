@@ -60,7 +60,7 @@ public class FragmentChiTietSanPham extends Fragment {
     private String selectedSize = null;
     private int idgh;
 
-
+    sanPham mSanPham;
     GioHangDao gioHangDao;
     private GioHangAdapter gioHangAdapter;
 
@@ -78,6 +78,7 @@ public class FragmentChiTietSanPham extends Fragment {
         btnAdd = view.findViewById(R.id.btn_mua);
 
         gioHangDao = new GioHangDao(getContext());
+
 
         bnt38 = view.findViewById(R.id.bnt38);
         bnt39 = view.findViewById(R.id.bnt39);
@@ -124,13 +125,8 @@ public class FragmentChiTietSanPham extends Fragment {
         });
 
 
-
-
-
         if (getArguments() != null) {
 
-
-//            String imgSanPham1 = getArguments().getString("image");
             String tvTen1 = getArguments().getString("tensp");
             int giaSanPham1 = getArguments().getInt("giasp");
             String imgUrl = getArguments().getString("image");
@@ -141,15 +137,8 @@ public class FragmentChiTietSanPham extends Fragment {
             String formattedGia = formatter.format(giaSanPham1);
 
             String tvGia1 = formattedGia + " đ";
-
-
-//            // Chuyển đổi giá trị int thành Drawable và hiển thị trong ImageView
-//            Drawable imageDrawable = getResources().getDrawable(imgSanPham1);
-//            imgSanPham.setImageDrawable(imageDrawable);
-//            imgSanPham.setImageResource(Integer.parseInt(imgSanPham1));
             tvTen.setText(tvTen1);
             tvGia.setText(tvGia1);
-
 
             btnAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -169,7 +158,6 @@ public class FragmentChiTietSanPham extends Fragment {
         View view = inflater.inflate(R.layout.dialog_chi_tiet_giay_1, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
-
 
         ImageView imganh = view.findViewById(R.id.anh_chitiet);
         TextView txtname = view.findViewById(R.id.ten_chitiet);
@@ -244,17 +232,10 @@ public class FragmentChiTietSanPham extends Fragment {
                     String size = selectedSize;
 
                     GioHang gioHang = new GioHang(tenSanPham,giaSanPham,soLuongSanPham,imageUrl,size);
-                    Log.d("HUY",tenSanPham);
-                    Log.d("HUY", String.valueOf(giaSanPham));
-                    Log.d("HUY", String.valueOf(soLuongSanPham));
-                    Log.d("HUY",imageUrl);
-                    Log.d("HUY",size);
 
                     boolean check = gioHangDao.ThemSP(gioHang);
                     if (check){
                         Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
-//                        ArrayList<GioHang> capnhat = gioHangDao.getDS();
-//                        gioHangAdapter.updatelist(capnhat);
                         dialog.dismiss();
                     }else {
                         Toast.makeText(getContext(), "Thêm Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
@@ -262,24 +243,6 @@ public class FragmentChiTietSanPham extends Fragment {
 
                 }
 
-//                String tenSanPham = txtname.getText().toString();
-//                // Lấy chuỗi giá trị có định dạng tiền  từ TextView
-//                String giaSanPhamText = txtgia.getText().toString();
-//                // Loại bỏ ký tự "," và "đ" từ chuỗi
-//                String giaSanPhamStripped = giaSanPhamText.replaceAll("[^\\d]", "");
-//
-//                try {
-//                    // Chuyển đổi chuỗi đã loại bỏ ký tự không phải số thành số nguyên
-//                    int giaSanPham = Integer.parseInt(giaSanPhamStripped);
-//                    int soLuongSanPham = Integer.parseInt(txtSo.getText().toString());
-//                    int anhSanPham = getArguments().getInt("image"); // Lấy thông tin ảnh từ bundle
-//
-//
-//                    Log.d("HUY", String.valueOf(giaSanPham));
-//
-//                } catch (NumberFormatException e) {
-//                    e.printStackTrace();
-//                }
 
                 FragmentThanhToan thanhToanFragment = new FragmentThanhToan();
 
