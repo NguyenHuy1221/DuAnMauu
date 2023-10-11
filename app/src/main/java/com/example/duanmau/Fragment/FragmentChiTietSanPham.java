@@ -80,6 +80,7 @@ public class FragmentChiTietSanPham extends Fragment {
         gioHangDao = new GioHangDao(getContext());
 
 
+
         bnt38 = view.findViewById(R.id.bnt38);
         bnt39 = view.findViewById(R.id.bnt39);
         bnt40 = view.findViewById(R.id.bnt40);
@@ -176,6 +177,8 @@ public class FragmentChiTietSanPham extends Fragment {
             String tvTen1 = bundle.getString("tensp");
             int giaSanPham1 = bundle.getInt("giasp");
 
+
+
             // Kiểm tra xem đã chọn kích thước (size) chưa
             if (selectedSize == null) {
                 Toast.makeText(getContext(), "Vui lòng chọn size", Toast.LENGTH_SHORT).show();
@@ -229,7 +232,13 @@ public class FragmentChiTietSanPham extends Fragment {
                     int giaSanPham = bundle.getInt("giasp");
                     int soLuongSanPham = Integer.parseInt(txtSo.getText().toString());
                     String imageUrl = bundle.getString("image");
+                    int soluong = bundle.getInt("soluong");
                     String size = selectedSize;
+
+                    if(so>soluong){
+                        Toast.makeText(getContext(), "Số lượng trong kho không đủ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     GioHang gioHang = new GioHang(tenSanPham,giaSanPham,soLuongSanPham,imageUrl,size);
 
