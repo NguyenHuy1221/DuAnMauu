@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,10 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duanmau.Adapter.NhanVienAdapter;
+import com.example.duanmau.Adapter.taiKhoanAdapter;
 import com.example.duanmau.DAO.NhanVienDao;
 import com.example.duanmau.DAO.sanPhamDAO;
+import com.example.duanmau.DAO.taikhoanDAO;
 import com.example.duanmau.R;
+import com.example.duanmau.model.NhanVien;
 import com.example.duanmau.model.sanPham;
+import com.example.duanmau.model.taiKhoan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -82,7 +87,13 @@ public class FragmentQuanLyNhanVien extends Fragment {
         recyclerView = view.findViewById(R.id.recycle_qlnv);
         floatAdd = view.findViewById(R.id.floatAddNV);
 //        configCloudinary();
+        nhanVienDao = new NhanVienDao(getContext());
+        ArrayList<NhanVien> listnv = nhanVienDao.queryData();
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        nhanVienAdapter = new NhanVienAdapter(getContext(),listnv,nhanVienDao);
+        recyclerView.setAdapter(nhanVienAdapter);
 
 
         return view;

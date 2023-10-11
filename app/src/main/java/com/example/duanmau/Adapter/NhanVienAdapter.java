@@ -54,11 +54,20 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull NhanVienAdapter.ViewHolder holder, int position) {
 
+
+        holder.idnv.setText(Integer.toString(listNV.get(position).getIdnhanvien()));
+        holder.sdtnv.setText(Integer.toString(listNV.get(position).getSodienthoai()));
+        holder.tennv.setText(listNV.get(position).getTennhanvien());
+        holder.diachinv.setText(listNV.get(position).getDiachi());
+        holder.chuvunv.setText(listNV.get(position).getChucvu());
+        holder.ngayvaolamnv.setText(listNV.get(position).getNgayvaolam());
+
+
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listNV.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

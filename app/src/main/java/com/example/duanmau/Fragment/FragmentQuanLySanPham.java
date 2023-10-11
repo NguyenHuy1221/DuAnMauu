@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -57,6 +59,7 @@ public class FragmentQuanLySanPham extends Fragment {
     private String filePath = "";
     private TextView tvTrangThai;
     private String linkHinh;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,6 +102,7 @@ public class FragmentQuanLySanPham extends Fragment {
         AlertDialog dialog = builder.create();
 
         // ánh xạ
+        Spinner spinner = view.findViewById(R.id.spiner);
         EditText edtSoLuong = view.findViewById(R.id.txt_soLuong);
         EditText edtTen = view.findViewById(R.id.txt_tenSP);
         EditText edtGia = view.findViewById(R.id.txt_GiaSP);
@@ -106,6 +110,16 @@ public class FragmentQuanLySanPham extends Fragment {
         Button btnLuu = view.findViewById(R.id.btn_Luu);
         ivHinhSP = view.findViewById(R.id.iv_hinhsp);
         tvTrangThai = view.findViewById(R.id.tv_trang_thai);
+
+        List<String> size = new ArrayList<>();
+        size.add("38");
+        size.add("39");
+        size.add("40");
+        size.add("41");
+        ArrayAdapter<String> sizeAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, size);
+        sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(sizeAdapter);
+
 
         //
         sanPhamDAO = new sanPhamDAO(getContext());
@@ -115,29 +129,11 @@ public class FragmentQuanLySanPham extends Fragment {
             @Override
             public void onClick(View v) {
 
-//                String tenSP = edtTen.getText().toString().trim();
-//                String giaSP = edtGia.getText().toString().trim();
-//                String soLuong = edtSoLuong.getText().toString().trim();
-//
-//
-//                if(tenSP.isEmpty() || giaSP.isEmpty() || soLuong.isEmpty()) {
-//                    Toast.makeText(getContext(), "Vui Lòng Nhập Đủ Dữ Liệu", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    sanPham mSanPham = new sanPham(tenSP,giaSP,soLuong,linkHinh);
-//                    boolean check = sanPhamDAO.addSP(mSanPham);
-//                    if (check){
-//                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
-//                        ArrayList<sanPham> capnhat = sanPhamDAO.getDS();
-//                        sanPhamAdapter.updatelist(capnhat);
-//                        dialog.dismiss();
-//                    }else {
-//                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
 
                 String tenSP = edtTen.getText().toString();
                 String giaSP = edtGia.getText().toString();
                 String soLuong = edtSoLuong.getText().toString();
+                String selectedSize = spinner.getSelectedItem().toString();
 
 
                 String regexTen = "[^\\d]{1,}";
@@ -187,7 +183,7 @@ public class FragmentQuanLySanPham extends Fragment {
                     return;
                 }
 
-                sanPham mSanPham = new sanPham(tenSP, Integer.parseInt(giaSP), Integer.parseInt(soLuong),linkHinh);
+                sanPham mSanPham = new sanPham(tenSP, Integer.parseInt(giaSP), Integer.parseInt(soLuong),linkHinh,selectedSize);
                 boolean check = sanPhamDAO.addSP(mSanPham);
                     if (check){
                         Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();

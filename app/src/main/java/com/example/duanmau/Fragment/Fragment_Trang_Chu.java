@@ -129,12 +129,13 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
         bundle.putString("image",mSanPham.getImagesp());
         bundle.putString("tensp",mSanPham.getTensp());
         bundle.putInt("giasp", mSanPham.getGiasp());
+        bundle.putInt("soluong",mSanPham.getSoluong());
         fragmentChiTietSanPham.setArguments(bundle);
 
 
         requireActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.layout_navigation, fragmentChiTietSanPham)
-                .addToBackStack(null) // (Tùy chọn) Cho phép chuyển đổi trở lại FragmentTrangChu nếu cần
+                .addToBackStack(null)
                 .commit();
 
     }

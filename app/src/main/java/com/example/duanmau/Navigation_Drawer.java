@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.duanmau.Fragment.FragmentHoaDon;
+import com.example.duanmau.Fragment.FragmentQuanLyNhanVien;
 import com.example.duanmau.Fragment.FragmentQuanLySanPham;
 import com.example.duanmau.Fragment.FragmentQuanLyTaiKhoan;
 import com.example.duanmau.Fragment.FragmentThanhToan;
@@ -86,6 +87,8 @@ public class Navigation_Drawer extends AppCompatActivity {
                     fragment = new ThuongHieuFragment();
                 } else if (items == R.id.menu_ql_hd) {
                     fragment = new FragmentHoaDon();
+                } else if (items == R.id.menu_ql_nv) {
+                    fragment = new FragmentQuanLyNhanVien();
                 } else if (items == R.id.logout) {
                     Intent intent = new Intent(Navigation_Drawer.this, Loggin.class);
                     startActivity(intent);

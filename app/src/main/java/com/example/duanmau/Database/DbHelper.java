@@ -21,10 +21,10 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO THUONG_HIEU VALUES(1,'NIKE'),(2,'ADIDAS'),(3,'PUMA'),(4,'REEBOK')");
 
         //sản phẩm
-        String qlSanPham = "CREATE TABLE SAN_PHAM(masp INTEGER PRIMARY KEY AUTOINCREMENT,tensp TEXT, giasp INTEGER,soluong INTEGER ,imagesp TEXT,idthuonghieu INTEGER REFERENCES THUONG_HIEU(idthuonghieu))";
+        String qlSanPham = "CREATE TABLE SAN_PHAM(masp INTEGER PRIMARY KEY AUTOINCREMENT,tensp TEXT, giasp INTEGER,soluong INTEGER ,imagesp TEXT,size TEXT,idthuonghieu INTEGER REFERENCES THUONG_HIEU(idthuonghieu))";
         db.execSQL(qlSanPham);
         // data sp
-        db.execSQL("INSERT INTO SAN_PHAM VALUES (1,'Giày NIKE AIR ZOOM',2231000,9,'',1),(2,'Giày HERRO',3000000,10,'',1)");
+        db.execSQL("INSERT INTO SAN_PHAM VALUES (1,'Giày NIKE AIR ZOOM',2231000,9,'',1,'39'),(2,'Giày HERRO',3000000,10,'',1,'39')");
 
         // Khách Hàng
         String qlKhachHang = "CREATE TABLE KHACH_HANG(idkhachhang INTEGER PRIMARY KEY AUTOINCREMENT,tenkhachhang TEXT ,sdt TEXT,diachi TEXT)";

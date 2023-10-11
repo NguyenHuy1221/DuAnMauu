@@ -21,6 +21,10 @@
         android:id="@+id/menu_ql_hd"
         android:title="Quản lý hóa đơn"
         android:icon="@drawable/ic_mat"/>
+    <item
+        android:id="@+id/menu_ql_nv"
+        android:title="Quản lý Nhân viên"
+        android:icon="@drawable/ic_mat"/>
 
     <group android:checkableBehavior="single">
         <item android:title="Khác">

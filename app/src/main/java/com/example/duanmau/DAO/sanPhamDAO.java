@@ -39,6 +39,7 @@ public class sanPhamDAO {
         contentValues.put("giasp",sanPham.getGiasp());
         contentValues.put("soluong",sanPham.getSoluong());
         contentValues.put("imagesp",sanPham.getImagesp());
+        contentValues.put("size",sanPham.getSize());
 
         long check = sqLiteDatabase.insert("SAN_PHAM",null,contentValues);
 

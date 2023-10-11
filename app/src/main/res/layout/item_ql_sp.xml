@@ -35,6 +35,11 @@
                 android:layout_height="wrap_content"
                 android:text="SL:3"/>
             <TextView
+                android:id="@+id/size_qlsp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="size: "/>
+            <TextView
                 android:id="@+id/gia_qlsp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

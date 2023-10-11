@@ -18,6 +18,8 @@ public class sanPham {
         this.size = size;
     }
 
+
+
     public sanPham(){
 
     }
@@ -27,6 +29,15 @@ public class sanPham {
         this.giasp = giasp;
         this.soluong = soluong;
         this.imagesp = imagesp;
+    }
+
+
+    public sanPham(String tensp, int giasp, int soluong, String imagesp, String size) {
+        this.tensp = tensp;
+        this.giasp = giasp;
+        this.soluong = soluong;
+        this.imagesp = imagesp;
+        this.size = size;
     }
 
     public int getMasp() {

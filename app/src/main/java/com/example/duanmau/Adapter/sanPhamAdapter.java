@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -66,6 +67,8 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
         String formattnumber = numberFormat.format(mNumer);
         holder.giasp.setText("Giá: " +formattnumber + " đ");
 
+        holder.size.setText("Size : "+listSP.get(position).getSize());
+
 
         holder.soluong.setText("Số lượng: "+listSP.get(position).getSoluong());
 
@@ -102,7 +105,7 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
         TextView tensp,giasp,soluong;
         ImageView imgsp;
         private TextView suaSP;
-        private TextView xoaSP;
+        private TextView xoaSP,size;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tensp = itemView.findViewById(R.id.ten_qlsp);
@@ -111,6 +114,7 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
             imgsp = itemView.findViewById(R.id.img_qlsp);
             suaSP = itemView.findViewById(R.id.sua_qlsp);
             xoaSP = itemView.findViewById(R.id.xoa_qlsp);
+            size = itemView.findViewById(R.id.size_qlsp);
         }
     }
 
@@ -126,6 +130,16 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
         EditText edtSoLuong = view.findViewById(R.id.txt_SsoLuongSP);
         EditText edtGia = view.findViewById(R.id.txt_SgiaSP);
         ImageView imageView = view.findViewById(R.id.iv_suahinhsp);
+        Spinner spinner = view.findViewById(R.id.spn_sua);
+
+        List<String> size = new ArrayList<>();
+        size.add("38");
+        size.add("39");
+        size.add("40");
+        size.add("41");
+        ArrayAdapter<String> sizeAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, size);
+        sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(sizeAdapter);
 
 
         Button btnThoat = view.findViewById(R.id.btn_SThoat);
@@ -136,6 +150,7 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
         edtSoLuong.setText(String.valueOf(MsanPham.getSoluong()));
         edtGia.setText(String.valueOf(MsanPham.getGiasp()));
         String imageUrl = MsanPham.getImagesp();
+
         Glide.with(context).load(imageUrl).into(imageView);
 
 
