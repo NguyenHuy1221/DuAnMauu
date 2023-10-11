@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.duanmau.Database.DbHelper;
+import com.example.duanmau.model.ChiTietHoaDon;
+import com.example.duanmau.model.GioHang;
 import com.example.duanmau.model.HoaDon;
 
 import java.util.ArrayList;
@@ -31,17 +33,49 @@ public class HoaDonDao {
         return check;
     }
 
-//    public ArrayList<HoaDon> getALL(){
-//        ArrayList<HoaDon> list = new ArrayList<>();
+
+
+
+//    public ArrayList<ChiTietHoaDon> getALL(){
+//        ArrayList<ChiTietHoaDon> list = new ArrayList<>();
 //        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
-//        Cursor cursor = sqLiteDatabase.rawQuery("SELECT hd.idhoadon,kh.tenkhachhang,nv.tennhanvien,hd.ngay,hd.tongtien FROM HOA_DON hd,KHACH_HANG kh , NHAN_VIEN nv WHERE hd.idkhachhang = kh.idkhachhang AND hd.idnhanvien = nv.idnhanvien\n" +
-//                "\n",null);
-//        if (cursor.getCount()>0){
-//            cursor.moveToFirst();
+//        String query = ("SELECT CTHD.idcthd, HOA_DON.idhoadon, HOA_DON.idkhachhang, HOA_DON.idnhanvien, HOA_DON.ngay, HOA_DON.tongtien,CTHD.masp, KHACH_HANG.tenkhachhang, KHACH_HANG.sdt, KHACH_HANG.diachi, SPDC.tensp, CTHD.soluong\n" +
+//                "FROM CTHD\n" +
+//                "INNER JOIN HOA_DON ON CTHD.idhoadon = HOA_DON.idhoadon\n" +
+//                "INNER JOIN SPDC ON SPDC.masp = CTHD.masp\n" +
+//                "INNER JOIN KHACH_HANG ON HOA_DON.idkhachhang = KHACH_HANG.idkhachhang");
+//        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+//
+//        if (cursor.moveToFirst()) {
 //            do {
-////                list.add(new HoaDon(cursor.getInt(1),));
-//            }while (cursor.moveToNext());
+//                int idcthd = cursor.getInt(0);
+//                int idhoadon = cursor.getInt(1);
+//                int idkhachhang = cursor.getInt(2);
+//                int idnhanvien = cursor.getInt(3);
+//                String ngay = cursor.getString(4);
+//                String tongtien = cursor.getString(5);
+//                int idsp = cursor.getInt(6);
+//                String tenkhachhang = cursor.getString(6);
+//                String sdt = cursor.getString(7);
+//                String diachi = cursor.getString(8);
+//                String tensp = cursor.getString(9);
+//                int soluong = cursor.getInt(10);
+//
+//                // Tạo đối tượng HoaDon
+//                HoaDon hoaDon = new HoaDon(idhoadon, idkhachhang, idnhanvien, ngay, tongtien);
+//
+//                // Tạo đối tượng ChiTietHoaDon
+//                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(idcthd,idsp,hoaDon,tensp,soluong);
+//
+//                // Thêm vào danh sách
+//                list.add(chiTietHoaDon);
+//            } while (cursor.moveToNext());
 //        }
+//
+//
+//        cursor.close();
+//        sqLiteDatabase.close();
+//
 //        return list;
 //    }
 

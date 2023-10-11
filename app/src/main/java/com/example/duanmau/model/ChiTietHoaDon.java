@@ -19,6 +19,8 @@ public class ChiTietHoaDon {
         this.dongia = dongia;
     }
 
+
+
     public int getIdcthd() {
         return idcthd;
     }

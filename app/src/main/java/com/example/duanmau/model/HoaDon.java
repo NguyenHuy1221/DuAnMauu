@@ -14,14 +14,14 @@ public class HoaDon {
 
 
 
-    public HoaDon(int idhoadon, int idkhachhang, int idnhanvien, String ngay, String tongtien, List<sanPham> dsGioHang) {
-        this.idhoadon = idhoadon;
-        this.idkhachhang = idkhachhang;
-        this.idnhanvien = idnhanvien;
-        this.ngay = ngay;
-        this.tongtien = tongtien;
-        this.dsGioHang = dsGioHang;
-    }
+//    public HoaDon(int idhoadon, int idkhachhang, int idnhanvien, String ngay, String tongtien, List<sanPham> dsGioHang) {
+//        this.idhoadon = idhoadon;
+//        this.idkhachhang = idkhachhang;
+//        this.idnhanvien = idnhanvien;
+//        this.ngay = ngay;
+//        this.tongtien = tongtien;
+//        this.dsGioHang = dsGioHang;
+//    }
 
     public HoaDon() {
         dsGioHang = new ArrayList<>();
