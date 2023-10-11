@@ -2,24 +2,24 @@ package com.example.duanmau.model;
 
 public class ChiTietHoaDon {
     private int idcthd;
-    private int masp;
-    private int idhoadon;
+    private sanPham sanPham;
+    private HoaDon hoaDon;
+    private KhachHang khachHang;
     private int soluong;
-    private double dongia;
+    private int dongia;
 
     public ChiTietHoaDon(){
 
     }
 
-    public ChiTietHoaDon(int idcthd, int masp, int idhoadon, int soluong, double dongia) {
+    public ChiTietHoaDon(int idcthd, sanPham sanPham, HoaDon hoaDon, KhachHang khachHang, int soluong, int dongia) {
         this.idcthd = idcthd;
-        this.masp = masp;
-        this.idhoadon = idhoadon;
+        this.sanPham = sanPham;
+        this.hoaDon = hoaDon;
+        this.khachHang = khachHang;
         this.soluong = soluong;
         this.dongia = dongia;
     }
-
-
 
     public int getIdcthd() {
         return idcthd;
@@ -29,20 +29,28 @@ public class ChiTietHoaDon {
         this.idcthd = idcthd;
     }
 
-    public int getMasp() {
-        return masp;
+    public com.example.duanmau.model.sanPham getSanPham() {
+        return sanPham;
     }
 
-    public void setMasp(int masp) {
-        this.masp = masp;
+    public void setSanPham(com.example.duanmau.model.sanPham sanPham) {
+        this.sanPham = sanPham;
     }
 
-    public int getIdhoadon() {
-        return idhoadon;
+    public HoaDon getHoaDon() {
+        return hoaDon;
     }
 
-    public void setIdhoadon(int idhoadon) {
-        this.idhoadon = idhoadon;
+    public void setHoaDon(HoaDon hoaDon) {
+        this.hoaDon = hoaDon;
+    }
+
+    public KhachHang getKhachHang() {
+        return khachHang;
+    }
+
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
     }
 
     public int getSoluong() {
@@ -53,11 +61,11 @@ public class ChiTietHoaDon {
         this.soluong = soluong;
     }
 
-    public double getDongia() {
+    public int getDongia() {
         return dongia;
     }
 
-    public void setDongia(double dongia) {
+    public void setDongia(int dongia) {
         this.dongia = dongia;
     }
 }

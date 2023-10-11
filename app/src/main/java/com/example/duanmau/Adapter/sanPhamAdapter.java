@@ -220,7 +220,7 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
 //                sanPham.setGiasp(Integer.parseInt(giasp));
 //                sanPham.setMaanh(anh);
 
-                sanPham sp = new sanPham(masp,tensp,Integer.parseInt(giasp),Integer.parseInt(solg),"");
+                sanPham sp = new sanPham(masp,tensp,Integer.parseInt(giasp),Integer.parseInt(solg),"","");
                     boolean check = sanPhamDAO.updateSP(sp);
                     if (check){
                         Toast.makeText(context, "Sủa Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();

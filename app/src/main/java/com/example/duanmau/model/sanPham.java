@@ -7,15 +7,15 @@ public class sanPham {
     private int giasp;
     private int soluong;
     private String imagesp;
-    private boolean isInCart;
+    private String size;
 
-    public sanPham(int masp, String tensp, int giasp,int soluong ,String imagesp) {
+    public sanPham(int masp, String tensp, int giasp,int soluong ,String imagesp,String size) {
         this.masp = masp;
         this.tensp = tensp;
         this.giasp = giasp;
         this.soluong = soluong;
         this.imagesp = imagesp;
-        this.isInCart = false;
+        this.size = size;
     }
 
     public sanPham(){
@@ -69,24 +69,11 @@ public class sanPham {
         this.soluong = soluong;
     }
 
-    public boolean isInCart() {
-        return isInCart;
+    public String getSize() {
+        return size;
     }
 
-    public void setInCart(boolean inCart) {
-        isInCart = inCart;
+    public void setSize(String size) {
+        this.size = size;
     }
-
-    // Phương thức kiểm tra số lượng tồn kho
-    public boolean isAvailable(int quantity) {
-        return this.soluong >= quantity;
-    }
-
-    // Phương thức giảm số lượng tồn kho sau khi mua hàng
-    public void reduceStock(int quantity) {
-        if (isAvailable(quantity)) {
-            this.soluong -= quantity;
-        }
-    }
-
 }

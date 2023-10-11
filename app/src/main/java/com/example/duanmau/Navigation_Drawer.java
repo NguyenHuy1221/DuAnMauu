@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.duanmau.Fragment.FragmentHoaDon;
 import com.example.duanmau.Fragment.FragmentQuanLySanPham;
 import com.example.duanmau.Fragment.FragmentQuanLyTaiKhoan;
 import com.example.duanmau.Fragment.FragmentThanhToan;
@@ -82,6 +84,12 @@ public class Navigation_Drawer extends AppCompatActivity {
                     fragment = new FragmentQuanLyTaiKhoan();
                 } else if (items == R.id.menu_ql_TH) {
                     fragment = new ThuongHieuFragment();
+                } else if (items == R.id.menu_ql_hd) {
+                    fragment = new FragmentHoaDon();
+                } else if (items == R.id.logout) {
+                    Intent intent = new Intent(Navigation_Drawer.this, Loggin.class);
+                    startActivity(intent);
+
                 }
                 getSupportFragmentManager()
                         .beginTransaction()

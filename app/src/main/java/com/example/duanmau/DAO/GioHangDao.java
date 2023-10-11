@@ -63,4 +63,11 @@ public class GioHangDao {
 
     }
 
+    public boolean xoaTatCaSanPham() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("DELETE FROM SPDC");
+        db.close();
+        return true;
+    }
+
 }

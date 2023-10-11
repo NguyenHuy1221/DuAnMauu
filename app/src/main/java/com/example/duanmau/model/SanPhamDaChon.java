@@ -4,12 +4,21 @@ public class SanPhamDaChon {
 
     private int masp;
     private String tensp;
-    private String giasp;
-    private String soluong;
+    private int giasp;
+    private int soluong;
     private String imagesp;
     private String size;
 
-    public SanPhamDaChon(int masp, String tensp, String giasp, String soluong, String imagesp, String size) {
+//    public SanPhamDaChon(int masp, String tensp, String giasp, String soluong, String imagesp, String size) {
+//        this.masp = masp;
+//        this.tensp = tensp;
+//        this.giasp = giasp;
+//        this.soluong = soluong;
+//        this.imagesp = imagesp;
+//        this.size = size;
+//    }
+
+    public SanPhamDaChon(int masp, String tensp, int giasp, int soluong, String imagesp, String size) {
         this.masp = masp;
         this.tensp = tensp;
         this.giasp = giasp;
@@ -17,6 +26,8 @@ public class SanPhamDaChon {
         this.imagesp = imagesp;
         this.size = size;
     }
+
+
 
     public int getMasp() {
         return masp;
@@ -34,19 +45,19 @@ public class SanPhamDaChon {
         this.tensp = tensp;
     }
 
-    public String getGiasp() {
+    public int getGiasp() {
         return giasp;
     }
 
-    public void setGiasp(String giasp) {
+    public void setGiasp(int giasp) {
         this.giasp = giasp;
     }
 
-    public String getSoluong() {
+    public int getSoluong() {
         return soluong;
     }
 
-    public void setSoluong(String soluong) {
+    public void setSoluong(int soluong) {
         this.soluong = soluong;
     }
 

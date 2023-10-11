@@ -52,6 +52,10 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public void clearData() {
+        listsp.clear();
+    }
+
     public void removeItem(int position) {
         GioHang gioHangRemoved = listsp.get(position);
         gioHangDao.xoaSP(String.valueOf(gioHangRemoved.getMasp()));
