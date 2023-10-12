@@ -23,6 +23,7 @@ import com.example.duanmau.Fragment.FragmentQuanLySanPham;
 import com.example.duanmau.Fragment.FragmentQuanLyTaiKhoan;
 import com.example.duanmau.Fragment.FragmentThanhToan;
 import com.example.duanmau.Fragment.Fragment_Trang_Chu;
+import com.example.duanmau.Fragment.Fragment_doanh_thu;
 import com.example.duanmau.Fragment.ThuongHieuFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -89,6 +90,8 @@ public class Navigation_Drawer extends AppCompatActivity {
                     fragment = new FragmentHoaDon();
                 } else if (items == R.id.menu_ql_nv) {
                     fragment = new FragmentQuanLyNhanVien();
+                }else if (items == R.id.menu_ql_dt) {
+                    fragment = new Fragment_doanh_thu();
                 } else if (items == R.id.logout) {
                     Intent intent = new Intent(Navigation_Drawer.this, Loggin.class);
                     startActivity(intent);

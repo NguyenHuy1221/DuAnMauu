@@ -148,12 +148,12 @@ public class FragmentQuanLyTaiKhoan extends Fragment {
                     ThemTaiKhoan themTaiKhoan = new ThemTaiKhoan(id, gmail, mk);
                     boolean check = taikhoanDAO.addSP(themTaiKhoan);
                     if (check) {
-                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm tài khoản Thành Công", Toast.LENGTH_SHORT).show();
                         ArrayList<taiKhoan> capnhat = taikhoanDAO.queryData();
                         taiKhoanAdapter.updatelist(capnhat);
                         dialog.dismiss();
                     } else {
-                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm tài khoản Thất Bại", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

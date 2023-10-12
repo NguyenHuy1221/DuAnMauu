@@ -7,10 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.duanmau.Database.DbHelper;
 import com.example.duanmau.model.ThemTaiKhoan;
+import com.example.duanmau.model.login;
 import com.example.duanmau.model.sanPham;
 import com.example.duanmau.model.taiKhoan;
+import com.google.firebase.firestore.auth.User;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class taikhoanDAO {
@@ -37,6 +41,58 @@ public class taikhoanDAO {
 
 
     }
+    public ArrayList<login> login3(String user, String pass) {
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        ArrayList<login> listSP = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TAI_KHOAN WHERE gmail = ? AND matkhau = ?",new String[]{user, pass});
+
+        if (cursor.moveToFirst()) {
+            // Nếu cursor chứa dữ liệu, lấy ra thông tin của tài khoản
+            do {
+                listSP.add(new login(cursor.getInt(0),cursor.getInt(1), cursor.getString(2), cursor.getString(3)) );
+            }while (cursor.moveToNext());
+        }
+        // Đóng cursor và cơ sở dữ liệu
+        cursor.close();
+        sqLiteDatabase.close();
+        return listSP;
+    }
+
+    public ArrayList<login> login2(String user, String pass) {
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        ArrayList<login> listSP = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TAI_KHOAN WHERE gmail = ? AND matkhau = ?",new String[]{user, pass});
+
+        if (cursor.moveToFirst()) {
+            // Nếu cursor chứa dữ liệu, lấy ra thông tin của tài khoản
+            do {
+                listSP.add(new login(cursor.getInt(0),cursor.getInt(1), cursor.getString(2), cursor.getString(3)) );
+            }while (cursor.moveToNext());
+        }
+        // Đóng cursor và cơ sở dữ liệu
+        cursor.close();
+        sqLiteDatabase.close();
+        return listSP;
+    }
+
+
+    public ArrayList<login> login1() {
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        ArrayList<login> listSP = new ArrayList<>();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM TAI_KHOAN ",null);
+
+        if (cursor.getCount() >0) {
+            cursor.moveToFirst();
+            do {
+                listSP.add(new login(cursor.getInt(0),cursor.getInt(1), cursor.getString(2), cursor.getString(3)) );
+
+            }while (cursor.moveToNext());
+        }
+        return listSP;
+
+
+    }
+
 
     public boolean addSP(ThemTaiKhoan themTaiKhoan) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
@@ -53,6 +109,7 @@ public class taikhoanDAO {
         }
         return true;
     }
+
 
     public boolean updateSP(taiKhoan taiKhoan) {
 

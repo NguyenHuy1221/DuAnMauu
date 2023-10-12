@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.duanmau.Database.DbHelper;
 import com.example.duanmau.model.NhanVien;
+import com.example.duanmau.model.ThemNhanVien;
 import com.example.duanmau.model.ThemTaiKhoan;
 import com.example.duanmau.model.taiKhoan;
 
@@ -41,40 +42,48 @@ public class NhanVienDao {
 
     }
 
-//    public boolean addSP(NhanVien nhanVien) {
-//        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("idnhanvien",themTaiKhoan.getIdnhanvien());
-//        contentValues.put("gmail",themTaiKhoan.getGmail());
-//        contentValues.put("matkhau",themTaiKhoan.getMatkhau());
-//
-//
-//        long check = sqLiteDatabase.insert("TAI_KHOAN",null,contentValues);
-//
-//        if (check == -1){
-//            return false;
-//        }
-//        return true;
-//    }
-
-//    public boolean updateNV(NhanVien nhanVien) {
-//
-//        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("idnhanvien",taiKhoan.getIdtk());
-//        contentValues.put("gmail",taiKhoan.getGmail());
-//        contentValues.put("matkhau",taiKhoan.getMatkhau());
-//
-//        long check = sqLiteDatabase.update("TAI_KHOAN",contentValues,"idtaikhoan=?",new String[]{String.valueOf(taiKhoan.getIdtaikhoan())});
-//        if (check <=0 ){
-//            return false;
-//        }
-//        return true;
-//    }
-
-    public boolean deleteSP(String matk) {
+    public boolean addSP(ThemNhanVien themNhanVien) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
-        int check = sqLiteDatabase.delete("TAI_KHOAN","idtaikhoan=?",new String[]{String.valueOf(matk)});
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("tennhanvien",themNhanVien.getTennhanvien());
+        contentValues.put("imagesp",themNhanVien.getImagenv());
+        contentValues.put("sdt",themNhanVien.getSdt());
+        contentValues.put("diachi",themNhanVien.getDiachi());
+        contentValues.put("ngayvaolam",themNhanVien.getNgayvaolam());
+        contentValues.put("idchucvu",themNhanVien.getIdchucvu());
+        contentValues.put("trangthai",themNhanVien.getTrangthai());
+
+
+
+        long check = sqLiteDatabase.insert("NHAN_VIEN",null,contentValues);
+
+        if (check == -1){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateNV(NhanVien nhanVien) {
+
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("tennhanvien",nhanVien.getTennhanvien());
+        contentValues.put("imagesp",nhanVien.getImagenhanvien());
+        contentValues.put("sdt",nhanVien.getSodienthoai());
+        contentValues.put("diachi",nhanVien.getDiachi());
+        contentValues.put("ngayvaolam",nhanVien.getNgayvaolam());
+        contentValues.put("idchucvu",nhanVien.getIdchucvu());
+
+        long check = sqLiteDatabase.update("NHAN_VIEN",contentValues,"idnhanvien=?",new String[]{String.valueOf(nhanVien.getIdnhanvien())});
+        if (check <=0 ){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deleteSP(String manv) {
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+        int check = sqLiteDatabase.delete("NHAN_VIEN","idnhanvien=?",new String[]{String.valueOf(manv)});
         if (check != -1 ){
             return true;
         }

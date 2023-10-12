@@ -86,7 +86,57 @@ public class ChiTietHoaDonDao {
         return list;
     }
 
+    public double getDoanhThuTheoNgay(){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        double doanhThu = 0;
+        String sSQL ="SELECT SUM(tongtien) from (SELECT SUM(SAN_PHAM.giasp * CTHD.soLuong) as 'tongtien' " +
+                "FROM HOA_DON INNER JOIN CTHD on HOA_DON.idhoadon = CTHD.idhoadon " +
+                "INNER JOIN SAN_PHAM on CTHD.masp = SAN_PHAM.masp where HOA_DON.ngay = date('now') " +
+                "GROUP BY CTHD.masp)tmp";
+        Cursor c = sqLiteDatabase.rawQuery(sSQL, null);
+        c.moveToFirst();
+        while (c.isAfterLast()==false){
+            doanhThu = c.getDouble(0);
+            c.moveToNext();
+        }
+        c.close();
+        return doanhThu;
 
+    }
+    public double getDoanhThuTheoThang(){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        double doanhThu = 0;
+        String sSQL ="SELECT SUM(tongtien) from (SELECT SUM(Sach.giaBia * HoaDonChiTiet.soLuong) as 'tongtien' " +
+                "FROM HoaDon INNER JOIN HoaDonChiTiet on HoaDon.maHoaDon = HoaDonChiTiet.maHoaDon " +
+                "INNER JOIN Sach on HoaDonChiTiet.maSach = Sach.maSach where strftime('%m',HoaDon.ngayMua) = " +
+                "strftime('%m','now') GROUP BY HoaDonChiTiet.maSach)tmp";
+        Cursor c = sqLiteDatabase.rawQuery(sSQL, null);
+        c.moveToFirst();
+        while (c.isAfterLast()==false){
+            doanhThu = c.getDouble(0);
+            c.moveToNext();
+        }
+        c.close();
+        return doanhThu;
+
+    }
+    public double getDoanhThuTheoNam(){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        double doanhThu = 0;
+        String sSQL ="SELECT SUM(tongtien) from (SELECT SUM(Sach.giaBia * HoaDonChiTiet.soLuong) as 'tongtien' " +
+                "FROM HoaDon INNER JOIN HoaDonChiTiet on HoaDon.maHoaDon = HoaDonChiTiet.maHoaDon " +
+                "INNER JOIN Sach on HoaDonChiTiet.maSach = Sach.maSach where strftime('%Y',HoaDon.ngayMua)" +
+                " = strftime('%Y','now') GROUP BY HoaDonChiTiet.maSach)tmp";
+        Cursor c = sqLiteDatabase.rawQuery(sSQL, null);
+        c.moveToFirst();
+        while (c.isAfterLast()==false){
+            doanhThu = c.getDouble(0);
+            c.moveToNext();
+        }
+        c.close();
+        return doanhThu;
+
+    }
 
 
 }

@@ -24,6 +24,7 @@ import com.example.duanmau.DAO.sanPhamDAO;
 import com.example.duanmau.DAO.taikhoanDAO;
 import com.example.duanmau.R;
 import com.example.duanmau.model.NhanVien;
+import com.example.duanmau.model.ThemNhanVien;
 import com.example.duanmau.model.sanPham;
 import com.example.duanmau.model.taiKhoan;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -95,122 +96,122 @@ public class FragmentQuanLyNhanVien extends Fragment {
         nhanVienAdapter = new NhanVienAdapter(getContext(),listnv,nhanVienDao);
         recyclerView.setAdapter(nhanVienAdapter);
 
-
+        floatAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                themNV();
+            }
+        });
         return view;
     }
-//    public void themNV() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
-//        View view = inflater.inflate(R.layout.dialog_nhanvien_them,null);
-//        builder.setView(view);
-//        AlertDialog dialog = builder.create();
-//
-//        // ánh xạ
-//        EditText edtten = view.findViewById(R.id.txt_tenNV);
-//        EditText edtsdt = view.findViewById(R.id.txt_sdtNV);
-//        EditText edtdiachi = view.findViewById(R.id.txt_diachiNV);
-//        EditText edtngayvaolam = view.findViewById(R.id.txt_ngayvaolamNV);
-//        EditText edtidchucvu = view.findViewById(R.id.txt_chucvuNV);
-//         ivHinhNV = view.findViewById(R.id.iv_hinhnv);
-//
-//        Button btnThoat = view.findViewById(R.id.btn_Thoat);
-//        Button btnLuu = view.findViewById(R.id.btn_Luu);
-//
-//        //
-//        nhanVienDao = new NhanVienDao(getContext());
-//
-//        //bắt sự kiện cho nút lưu
-//        btnLuu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                String ten = edtten.getText().toString().trim();
-//
-//                int sdt = Integer.parseInt(edtsdt.getText().toString().trim());
-//                String diachi = edtdiachi.getText().toString().trim();
-//                String ngayvaolam = edtngayvaolam.getText().toString().trim();
-//                int idchucvu = Integer.parseInt(edtidchucvu.getText().toString().trim());
-//
-//
-//
-//
-//
-//                String regexTen = "[^\\d]{1,}";
-//                String regexGia = "\\d{1,}";
-//
-//
-//                if(ten.isEmpty()&&diachi.isEmpty()&&ngayvaolam.isEmpty()) {
-//                    Toast.makeText(getContext(), "Vui Lòng Nhập Đủ Dữ Liệu", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                // kiểm tra tên
-//                if (ten.equals("")){
-//                    Toast.makeText(getContext(), "Chưa Nhập Tên Sản Phẩm", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }else if (ten.matches(regexTen)){
-//
-//                }else {
-//                    Toast.makeText(getContext(), "Tên Không Hợp Lệ", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                //kiểm  tra số điện thoại
-//                String regexSodienthoai = "^(0|84)(2[0-9]|3[2-9]|5[5-9]|7[0-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$\n";
-//                 if (sdt.matches(regexSodienthoai)) {
-//                    int soluongInt = (sdt);
-//                    if (soluongInt <= 0){
-//                        Toast.makeText(getContext(), "Nhập Số điện thoại không Hợp Lệ ", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                }else {
-//                    Toast.makeText(getContext(), "Nhập Số điện thoại không Hợp Lệ ", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                // kiểm tra giá
-//                if (giaSP.equals("")){
-//                    Toast.makeText(getContext(), "Chưa Nhập Giá Sản Phẩm", Toast.LENGTH_SHORT).show();
-//                    return;
-//                } else if (giaSP.matches(regexGia)) {
-//                    int soluongInt = Integer.parseInt(giaSP);
-//                    if (soluongInt <= 0){
-//                        Toast.makeText(getContext(), "Giá Không Hợp Lệ ", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                }else {
-//                    Toast.makeText(getContext(), "Giá Không Hợp Lệ ", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                sanPham mSanPham = new sanPham(tenSP, Integer.parseInt(giaSP), Integer.parseInt(soLuong),linkHinh);
-//                boolean check = sanPhamDAO.addSP(mSanPham);
-//                if (check){
-//                    Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
-//                    ArrayList<sanPham> capnhat = sanPhamDAO.getDS();
-//                    sanPhamAdapter.updatelist(capnhat);
-//                    dialog.dismiss();
-//                }else {
-//                    Toast.makeText(getContext(), "Thêm Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
-//                }
-//
-//
-//            }
-//        });
-//
-//        // bắt sự kiện cho nút thoát
-//        btnThoat.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//
+    public void themNV() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_nhanvien_them,null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+
+        // ánh xạ
+        EditText edtten = view.findViewById(R.id.txt_tenNV);
+        EditText edtsdt = view.findViewById(R.id.txt_sdtNV);
+        EditText edtdiachi = view.findViewById(R.id.txt_diachiNV);
+        EditText edtngayvaolam = view.findViewById(R.id.txt_ngayvaolamNV);
+        EditText edtidchucvu = view.findViewById(R.id.txt_chucvuNV);
+         ivHinhNV = view.findViewById(R.id.iv_hinhnv);
+
+        Button btnThoat = view.findViewById(R.id.btn_Thoat);
+        Button btnLuu = view.findViewById(R.id.btn_Luu);
+
+        //
+        nhanVienDao = new NhanVienDao(getContext());
+
+        //bắt sự kiện cho nút lưu
+        btnLuu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String ten = edtten.getText().toString().trim();
+
+                String sdt = edtsdt.getText().toString();
+                String diachi = edtdiachi.getText().toString().trim();
+                String ngayvaolam = edtngayvaolam.getText().toString().trim();
+                String idchucvu = edtidchucvu.getText().toString().trim();
+                int  trangthai = 1;
+
+                java.util.Date currentDate = new java.util.Date();
+                java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDate.getTime());
+                if (ngayvaolam.equals("")){
+                    ngayvaolam = String.valueOf(timestamp);
+                }
+
+
+
+                String regexTen = "[^\\d]{1,}";
+                String regexidchucvu = "^[12]+$";
+                String regexSodienthoai = "^0\\d{9}$";
+
+
+                if(ten.isEmpty() || diachi.isEmpty() ) {
+                    Toast.makeText(getContext(), "Vui Lòng Nhập Đủ Dữ Liệu", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // kiểm tra tên
+                if (ten.equals("")){
+                    Toast.makeText(getContext(), "Chưa Nhập Tên nhân viên", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (ten.matches(regexTen)){
+
+                }else {
+                    Toast.makeText(getContext(), "Tên Không Hợp Lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //kiểm  tra số điện thoại
+                 if (sdt.matches(regexSodienthoai)) {
+
+
+                }else {
+                    Toast.makeText(getContext(), "Nhập Số điện thoại không Hợp Lệ ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                 if (idchucvu.matches(regexidchucvu)){
+
+                 } else {
+                     Toast.makeText(getContext(), "Nhập id chức vụ không hợp lệ ", Toast.LENGTH_SHORT).show();
+                     return;
+                 }
+//                Integer.parseInt(giaSP)
+
+                ThemNhanVien themNhanVien = new ThemNhanVien(ten,"",Integer.parseInt(sdt),diachi,ngayvaolam,Integer.parseInt(idchucvu),trangthai);
+                boolean check = nhanVienDao.addSP(themNhanVien);
+                if (check){
+                    Toast.makeText(getContext(), "Thêm nhân viên Thành Công", Toast.LENGTH_SHORT).show();
+                    ArrayList<NhanVien> capnhat = nhanVienDao.queryData();
+                    nhanVienAdapter.updatelist(capnhat);
+                    dialog.dismiss();
+                }else {
+                    Toast.makeText(getContext(), "Thêm nhân viên Thất Bại", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
+        // bắt sự kiện cho nút thoát
+        btnThoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
 //        ivHinhSP.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                accessTheGallery();
 //            }
 //        });
-//
-//        dialog.setCancelable(false);
-//        dialog.show();
-//    }
+
+        dialog.setCancelable(false);
+        dialog.show();
+    }
 }

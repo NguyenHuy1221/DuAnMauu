@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_width="200dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#28A12D"
-                    android:text="số điện thoại : "/>
+                    android:text="số điện thoại :0"/>
                 <TextView
                     android:id="@+id/sdt_qlnv"
                     android:layout_width="wrap_content"
