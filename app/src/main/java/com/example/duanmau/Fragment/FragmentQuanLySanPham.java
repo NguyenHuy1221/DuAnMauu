@@ -1,10 +1,12 @@
 package com.example.duanmau.Fragment;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -81,14 +84,26 @@ public class FragmentQuanLySanPham extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         sanPhamAdapter = new sanPhamAdapter(getContext(),listsp,sanPhamDAO);
         recyclerView.setAdapter(sanPhamAdapter);
+        SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("data", MODE_PRIVATE);
 
-        // thêm san phẩm
-        floatAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                themSP();
+        int idchucvu = sharedPreferences2.getInt("chucvu",3);
+        boolean check = true;
+        if (idchucvu != 1){
+        check = false;
+
+        }
+            if (check == true){
+                // thêm san phẩm
+                floatAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        themSP();
+                    }
+                });
+            } else {
+                Toast.makeText(getContext(), "bạn không có quyền sử dụng chức năng này", Toast.LENGTH_SHORT).show();
             }
-        });
+
 
 //aaa
         return view;

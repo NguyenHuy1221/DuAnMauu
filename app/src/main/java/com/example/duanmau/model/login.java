@@ -5,16 +5,18 @@ public class login {
     private int idnhanvien;
     private String gmail;
     private String pass;
+    private int idchucvu;
 
     public login (){
 
     }
 
-    public login(int idtaikhoan, int idnhanvien, String gmail, String pass) {
+    public login(int idtaikhoan, int idnhanvien, String gmail, String pass, int idchucvu) {
         this.idtaikhoan = idtaikhoan;
         this.idnhanvien = idnhanvien;
         this.gmail = gmail;
         this.pass = pass;
+        this.idchucvu = idchucvu;
     }
 
     public int getIdtaikhoan() {
@@ -47,5 +49,13 @@ public class login {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public int getIdchucvu() {
+        return idchucvu;
+    }
+
+    public void setIdchucvu(int idchucvu) {
+        this.idchucvu = idchucvu;
     }
 }

@@ -10,8 +10,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -71,6 +73,8 @@ public class Navigation_Drawer extends AppCompatActivity {
             }
         });
 
+
+
         //sự kien khi ấn vào item tương ứng
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -93,9 +97,14 @@ public class Navigation_Drawer extends AppCompatActivity {
                 }else if (items == R.id.menu_ql_dt) {
                     fragment = new Fragment_doanh_thu();
                 } else if (items == R.id.logout) {
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
+                    sharedPreferences.edit().clear().commit();
+
+
                     Intent intent = new Intent(Navigation_Drawer.this, Loggin.class);
                     startActivity(intent);
-
+                    finish();
                 }
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -106,6 +115,19 @@ public class Navigation_Drawer extends AppCompatActivity {
                 return false;
             }
         });
+
+        SharedPreferences sharedPreferences2 = getSharedPreferences("data", MODE_PRIVATE);
+
+        int idchucvu = sharedPreferences2.getInt("chucvu",3);
+        if (idchucvu != 1){
+            Menu menu = mNavigationView.getMenu();
+
+            menu.findItem(R.id.menu_ql_dt).setVisible(false);
+            menu.findItem(R.id.menu_ql_TH).setVisible(false);
+            menu.findItem(R.id.menu_ql_nv).setVisible(false);
+            menu.findItem(R.id.menu_ql_tk).setVisible(false);
+
+        }
 
     }
 
