@@ -102,32 +102,6 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
             }
         });
 
-//        Bundle bundle = getArguments();
-//        if (bundle != null) {
-//            tenSanPham = bundle.getString("tenSanPham");
-//            giaSanPham = bundle.getString("giaSanPham");
-//            soLuongSanPham = bundle.getInt("soLuongSanPham");
-//            anhSanPham = bundle.getInt("anhSanPham");
-//        }
-//
-//
-//        TextView txtTenSanPham = view.findViewById(R.id.txtTenSanPham);
-//        TextView txtGiaSanPham = view.findViewById(R.id.txtGiaSanPham);
-//        TextView txtSoLuongSanPham = view.findViewById(R.id.txtSoLuongSanPham);
-//        ImageView imgSanPham = view.findViewById(R.id.imgSanPham);
-//
-//        txtTenSanPham.setText("Tên SP: "+tenSanPham);
-//        txtGiaSanPham.setText("Giá SP: "+giaSanPham);
-//        txtSoLuongSanPham.setText("Số Lượng: "+soLuongSanPham);
-//        imgSanPham.setImageResource(anhSanPham);
-//
-//        // Tính tổng tiền
-//        int gia = Integer.parseInt(giaSanPham.replaceAll("[^\\d]", ""));
-//        tongTien = gia * soLuongSanPham;
-//
-//        // Hiển thị tổng tiền
-//        TextView txtTongTien = view.findViewById(R.id.txtTongTien);
-//        txtTongTien.setText("Tổng tiền: " + formatTien(tongTien) + " ₫");
 
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,36 +167,35 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                     hoaDon.setTongtien(updateTotalPrice());
 
                     long ktHD = hoaDonDao.themHoaDon(hoaDon);
-                    Log.d("HUY", String.valueOf(ktHD));
                     int totalPrice = 0;
                     if (ktHD != -1){
-                        Toast.makeText(getContext(), "Oke", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm hóa đơn thành công", Toast.LENGTH_SHORT).show();
                         List<GioHang> gioHangList = gioHangDao.getDS();
                         hoaDon.setIdhoadon((int) ktHD);
                         for(GioHang gioHang: gioHangList){
                             int idsp = gioHang.getMasp();
-                            int mahd = (int) ktHD;
-                            int soluong = gioHang.getSoluong();
                             int giaSanPham = gioHang.getGiasp();
-                            int soLuong = gioHang.getSoluong();
-                            int thanhTien = giaSanPham * soLuong;
+                            int soluong = gioHang.getSoluong();
+                            String size = gioHang.getSize();
+                            int thanhTien = giaSanPham * soluong;
                             totalPrice += thanhTien;
 
                             ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-                            chiTietHoaDon.setSanPham(new sanPham(idsp, gioHang.getTensp(), giaSanPham, soLuong, gioHang.getImagesp(), gioHang.getSize()));
+                            chiTietHoaDon.setSanPham(new sanPham(idsp, gioHang.getTensp(), giaSanPham, soluong, gioHang.getImagesp(), size));
                             chiTietHoaDon.setHoaDon(hoaDon);
                             chiTietHoaDon.setSoluong(soluong);
                             chiTietHoaDon.setDongia(thanhTien);
 
                             long themCTHD = chiTietHoaDonDao.themChiTietHoaDon(chiTietHoaDon);
                             if (themCTHD != -1) {
-                                Toast.makeText(getContext(), " oke haha", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), " mua sản phầm thành công", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getContext(), "chưa oke huhu", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Thất bại", Toast.LENGTH_SHORT).show();
                             }
+
                         }
                     }else {
-                        Toast.makeText(getContext(), "Nooke", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm hóa đơn thất bại", Toast.LENGTH_SHORT).show();
                     }
 //                    gioHangDao.xoaTatCaSanPham();
                     gioHangAdapter.clearData();
@@ -233,8 +206,6 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                     fragmentTransaction.replace(R.id.layout_navigation, fragmentTrangChu);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-
-
 
 
                 }else {

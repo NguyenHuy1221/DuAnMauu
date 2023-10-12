@@ -35,9 +35,10 @@ public class ChiTietHoaDonAdapter extends RecyclerView.Adapter<ChiTietHoaDonAdap
         holder.txtNgay.setText("Ngày : " +chiTietHoaDon.getHoaDon().getNgay());
 
         holder.txtTenSanPham.setText("Tên sản phẩm : "+chiTietHoaDon.getSanPham().getTensp());
-        holder.txtSoLuong.setText(String.valueOf("Số lượng :" +chiTietHoaDon.getSoluong()));
-        holder.txtDonGia.setText(String.valueOf("Đơn giá : "+chiTietHoaDon.getDongia()));
-        holder.txtTongTien.setText(String.valueOf("Tổng tiền : "+chiTietHoaDon.getSoluong() * chiTietHoaDon.getDongia()));
+        holder.txtSoLuong.setText("Số lượng :" +chiTietHoaDon.getSoluong());
+        holder.txtDonGia.setText("Đơn giá : "+chiTietHoaDon.getDongia());
+        holder.txtTongTien.setText("Tổng tiền : "+chiTietHoaDon.getSoluong() * chiTietHoaDon.getDongia());
+
     }
 
     @Override

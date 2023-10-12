@@ -24,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
         String qlSanPham = "CREATE TABLE SAN_PHAM(masp INTEGER PRIMARY KEY AUTOINCREMENT,tensp TEXT, giasp INTEGER,soluong INTEGER ,imagesp TEXT,size TEXT,idthuonghieu INTEGER REFERENCES THUONG_HIEU(idthuonghieu))";
         db.execSQL(qlSanPham);
         // data sp
-        db.execSQL("INSERT INTO SAN_PHAM VALUES (1,'Giày NIKE AIR ZOOM',2231000,9,'',1,'39'),(2,'Giày HERRO',3000000,10,'',1,'39')");
+//        db.execSQL("INSERT INTO SAN_PHAM VALUES (1,'Giày NIKE AIR ZOOM',2231000,9,'',1,'39'),(2,'Giày HERRO',3000000,10,'',1,'39')");
 
         // Khách Hàng
         String qlKhachHang = "CREATE TABLE KHACH_HANG(idkhachhang INTEGER PRIMARY KEY AUTOINCREMENT,tenkhachhang TEXT ,sdt TEXT,diachi TEXT)";
@@ -50,20 +50,17 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO CHUC_VU VALUES (1,'admin'),(2,'Nhân viên')");
 
 
-
-
-
         // hoa don
         String qlHoaDon = "CREATE TABLE HOA_DON(idhoadon INTEGER PRIMARY KEY AUTOINCREMENT,idkhachhang INTEGER REFERENCES KHACH_HANG(idkhachhang),idnhanvien INTEGER REFERENCES NHAN_VIEN(idnhanvien) ,ngay date,tongtien TEXT)";
         db.execSQL(qlHoaDon);
         // data hoadon
-        db.execSQL("INSERT INTO HOA_DON VALUES (1,1,1,'03/10/2023','3000000'),(2,2,2,'10/09/2023','6000000')");
+//        db.execSQL("INSERT INTO HOA_DON VALUES (1,1,1,'03/10/2023','3000000'),(2,2,2,'10/09/2023','6000000')");
 
         // chi tiet hoa don
-        String ctHoaDon = "CREATE TABLE CTHD(idcthd INTEGER PRIMARY KEY AUTOINCREMENT,masp INTEGER REFERENCES SPDC(masp),idhoadon INTEGER REFERENCES HOA_DON(idhoadon),soluong INTEGER,dongia REAL)";
+        String ctHoaDon = "CREATE TABLE CTHD(idcthd INTEGER PRIMARY KEY AUTOINCREMENT,masp INTEGER REFERENCES SAN_PHAM(masp),idhoadon INTEGER REFERENCES HOA_DON(idhoadon),soluong INTEGER,dongia REAL)";
         db.execSQL(ctHoaDon);
         //data cthd
-        db.execSQL("INSERT INTO CTHD VALUES(1,1,1,2,300),(2,2,2,3,600)");
+//        db.execSQL("INSERT INTO CTHD VALUES(1,1,1,2,300),(2,2,2,3,600)");
 
         String spdachon = "CREATE TABLE SPDC(masp INTEGER PRIMARY KEY AUTOINCREMENT,tensp TEXT, giasp INTEGER,soluong INTEGER ,imagesp TEXT,size TEXT)";
         db.execSQL(spdachon);

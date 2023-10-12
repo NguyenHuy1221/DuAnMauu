@@ -24,6 +24,7 @@ import com.example.duanmau.DAO.GioHangDao;
 import com.example.duanmau.R;
 import com.example.duanmau.model.CartManager;
 import com.example.duanmau.model.GioHang;
+import com.example.duanmau.model.SanPhamDaChon;
 import com.example.duanmau.model.sanPham;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -228,6 +229,8 @@ public class FragmentChiTietSanPham extends Fragment {
                 Bundle bundle = getArguments();
                 if (bundle != null) {
                     int id = idgh+1;
+                    int idsp = bundle.getInt("masp");
+                    Log.d("HUY", String.valueOf(idsp));
                     String tenSanPham = bundle.getString("tensp");
                     int giaSanPham = bundle.getInt("giasp");
                     int soLuongSanPham = Integer.parseInt(txtSo.getText().toString());
@@ -241,6 +244,11 @@ public class FragmentChiTietSanPham extends Fragment {
                     }
 
                     GioHang gioHang = new GioHang(tenSanPham,giaSanPham,soLuongSanPham,imageUrl,size);
+
+
+                    sanPham sanPham = new sanPham(idsp,tenSanPham,giaSanPham,soluong,imageUrl,size);
+                    SanPhamDaChon sanPhamDaChon = new SanPhamDaChon(sanPham);
+
 
                     boolean check = gioHangDao.ThemSP(gioHang);
                     if (check){
