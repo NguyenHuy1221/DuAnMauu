@@ -62,6 +62,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
         holder.chuvunv.setText(listNV.get(position).getChucvu());
         holder.ngayvaolamnv.setText(listNV.get(position).getNgayvaolam());
 
+        Glide.with(context).load(listNV.get(position).getImagenhanvien()).into(holder.imgNV);
+
 
 
 

@@ -230,7 +230,6 @@ public class FragmentChiTietSanPham extends Fragment {
                 if (bundle != null) {
                     int id = idgh+1;
                     int idsp = bundle.getInt("masp");
-                    Log.d("HUY", String.valueOf(idsp));
                     String tenSanPham = bundle.getString("tensp");
                     int giaSanPham = bundle.getInt("giasp");
                     int soLuongSanPham = Integer.parseInt(txtSo.getText().toString());
@@ -243,12 +242,7 @@ public class FragmentChiTietSanPham extends Fragment {
                         return;
                     }
 
-                    GioHang gioHang = new GioHang(tenSanPham,giaSanPham,soLuongSanPham,imageUrl,size);
-
-
-                    sanPham sanPham = new sanPham(idsp,tenSanPham,giaSanPham,soluong,imageUrl,size);
-                    SanPhamDaChon sanPhamDaChon = new SanPhamDaChon(sanPham);
-
+                    GioHang gioHang = new GioHang(idsp,tenSanPham,giaSanPham,soLuongSanPham,imageUrl,size);
 
                     boolean check = gioHangDao.ThemSP(gioHang);
                     if (check){

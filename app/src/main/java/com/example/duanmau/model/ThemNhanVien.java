@@ -2,7 +2,6 @@ package com.example.duanmau.model;
 
 public class ThemNhanVien {
 
-
         private  String tennhanvien;
         private String imagenv;
         private int sdt;

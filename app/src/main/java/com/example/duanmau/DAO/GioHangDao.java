@@ -38,6 +38,7 @@ public class GioHangDao {
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
+        contentValues.put("masp",gioHang.getMasp());
         contentValues.put("tensp",gioHang.getTensp());
         contentValues.put("giasp",gioHang.getGiasp());
         contentValues.put("soluong",gioHang.getSoluong());

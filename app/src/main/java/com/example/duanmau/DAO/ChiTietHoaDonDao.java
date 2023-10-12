@@ -4,15 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.duanmau.Database.DbHelper;
 import com.example.duanmau.model.ChiTietHoaDon;
-import com.example.duanmau.model.GioHang;
 import com.example.duanmau.model.HoaDon;
 import com.example.duanmau.model.KhachHang;
-import com.example.duanmau.model.SanPhamDaChon;
 import com.example.duanmau.model.sanPham;
-import com.example.duanmau.model.taiKhoan;
 
 import java.util.ArrayList;
 
@@ -45,11 +43,12 @@ public class ChiTietHoaDonDao {
     public ArrayList<ChiTietHoaDon> layDanhSachChiTietHoaDon() {
         ArrayList<ChiTietHoaDon> list = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
-        String query = ("SELECT CTHD.idcthd, SPDC.masp, SPDC.tensp, SPDC.giasp, SPDC.soluong, SPDC.imagesp, SPDC.size, HOA_DON.idhoadon, HOA_DON.idkhachhang, HOA_DON.idnhanvien, HOA_DON.ngay, HOA_DON.tongtien, CTHD.soluong, CTHD.dongia, KHACH_HANG.tenkhachhang, KHACH_HANG.sdt, KHACH_HANG.diachi " +
-                "FROM CTHD " +
-                "INNER JOIN SPDC ON CTHD.masp = SPDC.masp " +
-                "INNER JOIN HOA_DON ON CTHD.idhoadon = HOA_DON.idhoadon " +
-                "INNER JOIN KHACH_HANG ON HOA_DON.idkhachhang = KHACH_HANG.idkhachhang");
+        String query = ("SELECT CTHD.idcthd, SAN_PHAM.masp, SAN_PHAM.tensp, SAN_PHAM.giasp, SAN_PHAM.soluong, SAN_PHAM.imagesp, SAN_PHAM.size, HOA_DON.idhoadon, HOA_DON.idkhachhang, HOA_DON.idnhanvien, HOA_DON.ngay, HOA_DON.tongtien, CTHD.soluong, CTHD.dongia, KHACH_HANG.tenkhachhang, KHACH_HANG.sdt, KHACH_HANG.diachi\n" +
+                "                FROM CTHD \n" +
+                "                INNER JOIN SAN_PHAM ON CTHD.masp = SAN_PHAM.masp \n" +
+                "                INNER JOIN HOA_DON ON CTHD.idhoadon = HOA_DON.idhoadon \n" +
+                "                INNER JOIN KHACH_HANG ON HOA_DON.idkhachhang = KHACH_HANG.idkhachhang");
+
         Cursor cursor = sqLiteDatabase.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -86,56 +85,82 @@ public class ChiTietHoaDonDao {
         return list;
     }
 
-    public double getDoanhThuTheoNgay(){
+    public double getDoanhThuTheoNgay() {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         double doanhThu = 0;
-        String sSQL ="SELECT SUM(tongtien) from (SELECT SUM(SAN_PHAM.giasp * CTHD.soLuong) as 'tongtien' " +
-                "FROM HOA_DON INNER JOIN CTHD on HOA_DON.idhoadon = CTHD.idhoadon " +
-                "INNER JOIN SAN_PHAM on CTHD.masp = SAN_PHAM.masp where HOA_DON.ngay = date('now') " +
-                "GROUP BY CTHD.masp)tmp";
+        String sSQL = "SELECT SUM(total_price) FROM ( " +
+                "    SELECT SPDC.masp, SUM(CTHD.soluong * SPDC.giasp) as total_price " +
+                "    FROM CTHD " +
+                "    INNER JOIN SPDC ON CTHD.masp = SPDC.masp " +
+                "    INNER JOIN HOA_DON ON CTHD.idhoadon = HOA_DON.idhoadon " +
+                "    WHERE date(HOA_DON.ngay) = date('now') " +
+                "    GROUP BY SPDC.masp " +
+                ") AS tmp";
+
         Cursor c = sqLiteDatabase.rawQuery(sSQL, null);
-        c.moveToFirst();
-        while (c.isAfterLast()==false){
-            doanhThu = c.getDouble(0);
-            c.moveToNext();
+
+        if (c.moveToFirst()) {
+            int columnIndex = c.getColumnIndex("SUM(total_price)"); // Get the index of the column
+
+            if (columnIndex != -1) {
+                doanhThu = c.getDouble(columnIndex);
+            } else {
+                // Handle the case where the column doesn't exist
+                Log.e("Error", "Column 'SUM(total_price)' not found");
+            }
         }
+
         c.close();
         return doanhThu;
-
     }
-    public double getDoanhThuTheoThang(){
+
+
+
+
+    public double getDoanhThuTheoThang(int month, int year) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         double doanhThu = 0;
-        String sSQL ="SELECT SUM(tongtien) from (SELECT SUM(Sach.giaBia * HoaDonChiTiet.soLuong) as 'tongtien' " +
-                "FROM HoaDon INNER JOIN HoaDonChiTiet on HoaDon.maHoaDon = HoaDonChiTiet.maHoaDon " +
-                "INNER JOIN Sach on HoaDonChiTiet.maSach = Sach.maSach where strftime('%m',HoaDon.ngayMua) = " +
-                "strftime('%m','now') GROUP BY HoaDonChiTiet.maSach)tmp";
+
+        String sSQL = "SELECT SUM(total_price) FROM (\n" +
+                "    SELECT SPDC.masp, SUM(CTHD.soluong * SPDC.giasp) as total_price\n" +
+                "    FROM CTHD\n" +
+                "    INNER JOIN SPDC ON CTHD.masp = SPDC.masp\n" +
+                "    INNER JOIN HOA_DON ON CTHD.idhoadon = HOA_DON.idhoadon\n" +
+                "    WHERE strftime('%Y-%m', HOA_DON.ngay) = '" + year + "-" + (month < 10 ? "0" + month : month) + "'\n" +
+                "    GROUP BY SPDC.masp\n" +
+                ") AS tmp";
+
         Cursor c = sqLiteDatabase.rawQuery(sSQL, null);
-        c.moveToFirst();
-        while (c.isAfterLast()==false){
+
+        if (c.moveToFirst()) {
             doanhThu = c.getDouble(0);
-            c.moveToNext();
         }
+
         c.close();
         return doanhThu;
-
     }
-    public double getDoanhThuTheoNam(){
+
+    public double getDoanhThuTheoNam(int year) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         double doanhThu = 0;
-        String sSQL ="SELECT SUM(tongtien) from (SELECT SUM(Sach.giaBia * HoaDonChiTiet.soLuong) as 'tongtien' " +
-                "FROM HoaDon INNER JOIN HoaDonChiTiet on HoaDon.maHoaDon = HoaDonChiTiet.maHoaDon " +
-                "INNER JOIN Sach on HoaDonChiTiet.maSach = Sach.maSach where strftime('%Y',HoaDon.ngayMua)" +
-                " = strftime('%Y','now') GROUP BY HoaDonChiTiet.maSach)tmp";
+
+        String sSQL = "SELECT SUM(total_price) FROM (\n" +
+                "    SELECT SPDC.masp, SUM(CTHD.soluong * SPDC.giasp) as total_price\n" +
+                "    FROM CTHD\n" +
+                "    INNER JOIN SPDC ON CTHD.masp = SPDC.masp\n" +
+                "    INNER JOIN HOA_DON ON CTHD.idhoadon = HOA_DON.idhoadon\n" +
+                "    WHERE strftime('%Y', HOA_DON.ngay) = '" + year + "'\n" +
+                "    GROUP BY SPDC.masp\n" +
+                ") AS tmp";
+
         Cursor c = sqLiteDatabase.rawQuery(sSQL, null);
-        c.moveToFirst();
-        while (c.isAfterLast()==false){
+
+        if (c.moveToFirst()) {
             doanhThu = c.getDouble(0);
-            c.moveToNext();
         }
+
         c.close();
         return doanhThu;
-
     }
 
 

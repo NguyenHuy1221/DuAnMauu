@@ -42,6 +42,7 @@ import com.google.firebase.Timestamp;
 
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -162,8 +163,10 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                     hoaDon.setIdkhachhang((int) khachHangId);
                     hoaDon.setIdnhanvien(1);
                     java.util.Date currentDate = new java.util.Date();
-                    java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDate.getTime());
-                    hoaDon.setNgay(String.valueOf(timestamp));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String ngay = dateFormat.format(currentDate);
+                    hoaDon.setNgay(ngay);
+
                     hoaDon.setTongtien(updateTotalPrice());
 
                     long ktHD = hoaDonDao.themHoaDon(hoaDon);
