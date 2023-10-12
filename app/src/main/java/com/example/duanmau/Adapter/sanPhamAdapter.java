@@ -1,9 +1,12 @@
 package com.example.duanmau.Adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,21 +78,37 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
         // xử lí hhinhf ảnh
         Glide.with(context).load(listSP.get(position).getImagesp()).into(holder.imgsp);
 
+        SharedPreferences sharedPreferences2 = context.getSharedPreferences("data", MODE_PRIVATE);
 
-        holder.suaSP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SuaSP(listSP.get(holder.getAbsoluteAdapterPosition()));
-            }
-        });
+        int idchucvu = sharedPreferences2.getInt("chucvu",3);
+        boolean check = true;
+        if (idchucvu != 1){
+            check = false;
 
-        holder.xoaSP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                xoaSP(listSP.get(holder.getAbsoluteAdapterPosition()).getTensp()
-                        ,listSP.get(holder.getAbsoluteAdapterPosition()).getMasp());
-            }
-        });
+        }
+        if (check == true){
+            // thêm san phẩm
+
+
+            holder.suaSP.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SuaSP(listSP.get(holder.getAbsoluteAdapterPosition()));
+                }
+            });
+
+            holder.xoaSP.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    xoaSP(listSP.get(holder.getAbsoluteAdapterPosition()).getTensp()
+                            ,listSP.get(holder.getAbsoluteAdapterPosition()).getMasp());
+                }
+            });
+
+        } else {
+            Toast.makeText(context, "bạn không có quyền sử dụng chức năng này", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

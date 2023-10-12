@@ -17,10 +17,10 @@
         android:theme="@style/Theme.DuAnMau"
         tools:targetApi="31">
         <activity
-            android:name=".Loggin"
+            android:name=".Navigation_Drawer"
             android:exported="false" />
         <activity
-            android:name=".Navigation_Drawer"
+            android:name=".Loggin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

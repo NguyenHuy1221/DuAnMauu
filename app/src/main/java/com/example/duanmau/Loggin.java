@@ -63,23 +63,25 @@ public class Loggin extends AppCompatActivity {
                         if (pass.getText().toString().equals(matkhau)) {
                             // Lưu trữ thông tin tài khoản vào SharedPreferences
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("u", User);
-                            editor.putString("p", Pass);
-                            editor.putInt("chucvu", taikhoan.getIdtaikhoan());
+                            editor.putString("u", taikhoan.getGmail());
+                            editor.putString("p", taikhoan.getPass());
+                            editor.putInt("chucvu", taikhoan.getIdchucvu());
                             editor.apply();
-                            setContentView(R.layout.activity_navigation_drawer);
-                            // ánh xạ
-                            mDrawerLayout = findViewById(R.id.drawerlayout);
-                            // Chuyển sang fragment trang chủ
-                            Fragment_Trang_Chu fragment = new Fragment_Trang_Chu();
-                            getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.layout_navigation,fragment)
-                                    .commit();
-
-                            mDrawerLayout.closeDrawer(GravityCompat.START);
+                            Intent intent = new Intent(Loggin.this, Navigation_Drawer.class);
+                            startActivity(intent);
+//                            setContentView(R.layout.activity_navigation_drawer);
+//                            // ánh xạ
+//                            mDrawerLayout = findViewById(R.id.drawerlayout);
+//                            // Chuyển sang fragment trang chủ
+//                            Fragment_Trang_Chu fragment = new Fragment_Trang_Chu();
+//                            getSupportFragmentManager()
+//                                    .beginTransaction()
+//                                    .replace(R.id.layout_navigation,fragment)
+//                                    .commit();
+//
+//                            mDrawerLayout.closeDrawer(GravityCompat.START);
                             // Thoát khỏi vòng lặp
-                            Toast.makeText(Loggin.this, "sai tài khoản hoặc mật khẩu "+taikhoan.getGmail(), Toast.LENGTH_SHORT).show();
+
                             break;
                         } else {
                             // Nếu mật khẩu không khớp, hiển thị thông báo lỗi và thoát khỏi hàm
@@ -87,7 +89,7 @@ public class Loggin extends AppCompatActivity {
                             return;
                         }
                     } else {
-                        Toast.makeText(Loggin.this, "sai tài khoản hoặc mật khẩu "+taikhoan.getGmail(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Loggin.this, "sai tài khoản hoặc mật khẩu ", Toast.LENGTH_SHORT).show();
 
                     }
 
