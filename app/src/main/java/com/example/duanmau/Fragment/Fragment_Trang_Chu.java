@@ -37,7 +37,6 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
     private sliderAdapter sliderAdapter;
-    private SearchView searchView;
     private RecyclerView recyclerViewLogo;
     private logoAdapter mLogoAdapter;
     private sanPhamDAO mSanPhamDAO;
@@ -45,6 +44,8 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
     private showSanPhamAdapter showSanPhamAdapter;
     private RecyclerView recyclerViewSanPham;
     private FirebaseFirestore database;
+    private SearchView searchView;
+
 
     public Fragment_Trang_Chu() {
     }
@@ -58,7 +59,7 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
 
         viewPager = view.findViewById(R.id.viewpager);
         circleIndicator = view.findViewById(R.id.circle_indicator);
-//        searchView = view.findViewById(R.id.timKiem);
+        searchView = view.findViewById(R.id.search);
         recyclerViewLogo = view.findViewById(R.id.rv_logo);
         recyclerViewSanPham = view.findViewById(R.id.rc_sanPham);
 
@@ -71,7 +72,30 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
         circleIndicator.setViewPager(viewPager);
         sliderAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
 
-//        searchView.setQueryHint("What are you looking for");
+
+        // searchView
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Xử lý khi người dùng hoàn thành tìm kiếm (nút Enter)
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Xử lý khi người dùng thay đổi nội dung tìm kiếm
+                if (newText != null && !newText.isEmpty()) {
+                    // Gọi phương thức để tìm kiếm sản phẩm
+                    searchSanPham(newText);
+                } else {
+                    // Hiển thị toàn bộ sản phẩm nếu trường tìm kiếm trống
+                    ArrayList<sanPham> listsp = mSanPhamDAO.getDS();
+                    showSanPhamAdapter.setData(listsp);
+                }
+                return true;
+            }
+        });
+
 
         // hiện danh sách logo
         mLogoAdapter = new logoAdapter(getContext(),getLogo());
@@ -91,13 +115,6 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
         recyclerViewSanPham.setAdapter(showSanPhamAdapter);
 
 
-        //search
-//        searchView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         return view;
     }
@@ -120,6 +137,12 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
         list.add(new logo(R.drawable.reebok));
         return list;
     }
+
+    public void searchSanPham(String tenSanPham) {
+        ArrayList<sanPham> listsp = mSanPhamDAO.timKiemSP(tenSanPham);
+        showSanPhamAdapter.setData(listsp);
+    }
+
 
     @Override
     public void onclick(sanPham mSanPham) {

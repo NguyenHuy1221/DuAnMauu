@@ -17,12 +17,13 @@
         android:orientation="vertical"
         android:layout_margin="10dp">
 
-<!--        <androidx.appcompat.widget.SearchView-->
-<!--            android:id="@+id/timKiem"-->
-<!--            android:background="#F0F0F0"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:queryHint="What are you looking for?" />-->
+
+        <SearchView 
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="Tìm kiếm"
+            android:background="@drawable/duong_vien"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager"

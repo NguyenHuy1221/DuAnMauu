@@ -10,6 +10,8 @@ import com.example.duanmau.model.sanPham;
 
 import java.util.ArrayList;
 
+import javax.xml.transform.Result;
+
 public class sanPhamDAO {
     DbHelper dbHelper;
 
@@ -73,6 +75,24 @@ public class sanPhamDAO {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<sanPham> timKiemSP(String keyword) {
+        ArrayList<sanPham> list = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+
+        String query = "SELECT * FROM SAN_PHAM WHERE tensp LIKE '%" + keyword + "%'";
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            do {
+                list.add(new sanPham(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getString(4), cursor.getString(5)));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return list;
     }
 
 }

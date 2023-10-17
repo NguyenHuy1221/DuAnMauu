@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.duanmau.DAO.ChiTietHoaDonDao;
@@ -26,6 +28,9 @@ public class Fragment_doanh_thu extends Fragment {
 
     TextView tvNgay, tvThang, tvNam;
     ChiTietHoaDonDao hoaDonChiTietDAO;
+
+    private EditText edtSearch;
+    private Button btnSearch;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,16 +38,24 @@ public class Fragment_doanh_thu extends Fragment {
         View view = inflater.inflate(R.layout.fragment_doanh_thu, container, false);
 
         tvNgay = (TextView) view.findViewById(R.id.tvThongKeNgay);
-        tvThang = (TextView) view.findViewById(R.id.tvThongKeThang);
-        tvNam = (TextView) view.findViewById(R.id.tvThongKeNam);
-        hoaDonChiTietDAO = new ChiTietHoaDonDao(getContext());
-        // Lấy doanh thu từ DAO
-        double doanhThu = hoaDonChiTietDAO.getDoanhThuTheoNgay();
+        edtSearch = view.findViewById(R.id.edtSearch);
+        btnSearch = view.findViewById(R.id.btnSearch);
 
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###.##");
-        String doanhThuFormatted = decimalFormat.format(doanhThu);
-        tvNgay.setText("Hôm nay: " + doanhThuFormatted);
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tim = edtSearch.getText().toString().trim();
+                hoaDonChiTietDAO = new ChiTietHoaDonDao(getContext());
+
+                // Lấy doanh thu từ DAO
+                double doanhThu = hoaDonChiTietDAO.thongKeTheoNgay(tim);
+
+                DecimalFormat decimalFormat = new DecimalFormat("###,###,###.##");
+                String doanhThuFormatted = decimalFormat.format(doanhThu);
+                tvNgay.setText("Hôm nay: " + doanhThuFormatted);
+            }
+        });
 
         return view;
 
