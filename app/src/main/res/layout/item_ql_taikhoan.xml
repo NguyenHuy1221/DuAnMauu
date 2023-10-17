@@ -11,18 +11,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
+        android:background="#F1F3E4"
         >
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_qltk"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/man"
-            android:background="#DDD7D7">
+            >
         </de.hdodenhof.circleimageview.CircleImageView>
         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
@@ -80,6 +81,40 @@
 
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="#28A12D"
+                    android:layout_height="wrap_content"
+                    android:text="Tài Khoản:"/>
+                <TextView
+                    android:id="@+id/gmail_qltk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text=""/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#28A12D"
+                    android:text="Mật Khẩu :"/>
+                <TextView
+                    android:id="@+id/mk_qltk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text=""/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,24 +145,7 @@
 
             >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tài Khoản:"/>
-                <TextView
-                    android:id="@+id/gmail_qltk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mật Khẩu :"/>
-            <TextView
-                android:id="@+id/mk_qltk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
+
 
 
         </LinearLayout>

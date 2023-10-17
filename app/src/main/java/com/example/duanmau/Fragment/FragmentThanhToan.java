@@ -200,7 +200,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                     }else {
                         Toast.makeText(getContext(), "Thêm hóa đơn thất bại", Toast.LENGTH_SHORT).show();
                     }
-//                    gioHangDao.xoaTatCaSanPham();
+                    gioHangDao.xoaTatCaSanPham();
                     gioHangAdapter.clearData();
                     gioHangAdapter.notifyDataSetChanged();
 

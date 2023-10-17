@@ -131,6 +131,7 @@ public class Fragment_Trang_Chu extends Fragment implements ClickItem {
         bundle.putString("tensp",mSanPham.getTensp());
         bundle.putInt("giasp", mSanPham.getGiasp());
         bundle.putInt("soluong",mSanPham.getSoluong());
+        bundle.putString("size",mSanPham.getSize());
         fragmentChiTietSanPham.setArguments(bundle);
 
 

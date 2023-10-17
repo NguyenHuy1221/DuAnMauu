@@ -56,6 +56,8 @@ public class sanPhamDAO {
         contentValues.put("tensp",sanPham.getTensp());
         contentValues.put("giasp",sanPham.getGiasp());
         contentValues.put("soluong",sanPham.getSoluong());
+        contentValues.put("size",sanPham.getSize());
+
 
         long check = sqLiteDatabase.update("SAN_PHAM",contentValues,"masp=?",new String[]{String.valueOf(sanPham.getMasp())});
         if (check <=0 ){

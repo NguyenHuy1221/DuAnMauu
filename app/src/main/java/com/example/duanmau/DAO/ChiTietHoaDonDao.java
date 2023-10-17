@@ -85,6 +85,8 @@ public class ChiTietHoaDonDao {
         return list;
     }
 
+
+
     public double getDoanhThuTheoNgay() {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         double doanhThu = 0;
@@ -100,7 +102,9 @@ public class ChiTietHoaDonDao {
         Cursor c = sqLiteDatabase.rawQuery(sSQL, null);
 
         if (c.moveToFirst()) {
-            int columnIndex = c.getColumnIndex("SUM(total_price)"); // Get the index of the column
+
+
+            int columnIndex = c.getColumnIndex("SUM(total_price)");
 
             if (columnIndex != -1) {
                 doanhThu = c.getDouble(columnIndex);
@@ -113,6 +117,8 @@ public class ChiTietHoaDonDao {
         c.close();
         return doanhThu;
     }
+
+
 
 
 

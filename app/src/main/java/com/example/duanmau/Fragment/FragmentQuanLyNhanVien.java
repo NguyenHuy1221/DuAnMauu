@@ -97,6 +97,8 @@ public class FragmentQuanLyNhanVien extends Fragment {
     private TextView tvTrangThai;
     private String linkHinh;
     private FloatingActionButton floatAdd;
+    private static boolean mediaManagerInitialized = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,7 +107,12 @@ public class FragmentQuanLyNhanVien extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycle_qlnv);
         floatAdd = view.findViewById(R.id.floatAddNV);
-        configCloudinary();
+
+        if (!mediaManagerInitialized) {
+            configCloudinary();
+            mediaManagerInitialized = true;
+        }
+
         nhanVienDao = new NhanVienDao(getContext());
         ArrayList<NhanVien> listnv = nhanVienDao.queryData();
 
@@ -113,6 +120,7 @@ public class FragmentQuanLyNhanVien extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         nhanVienAdapter = new NhanVienAdapter(getContext(),listnv,nhanVienDao);
         recyclerView.setAdapter(nhanVienAdapter);
+
 
         floatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,11 +287,21 @@ public class FragmentQuanLyNhanVien extends Fragment {
 
     HashMap<String, String> config = new HashMap<>();
 
+//    private void configCloudinary() {
+//        config.put("cloud_name", "db6fm3nna");
+//        config.put("api_key", "275634911119596");
+//        config.put("api_secret", "hInLl-uSG0iim9jDRjGjT-huhv0");
+//        MediaManager.init(getActivity(), config);
+//    }
+
     private void configCloudinary() {
-        config.put("cloud_name", "db6fm3nna");
-        config.put("api_key", "275634911119596");
-        config.put("api_secret", "hInLl-uSG0iim9jDRjGjT-huhv0");
-        MediaManager.init(getActivity(), config);
+        if (!mediaManagerInitialized) {
+            config.put("cloud_name", "db6fm3nna");
+            config.put("api_key", "275634911119596");
+            config.put("api_secret", "hInLl-uSG0iim9jDRjGjT-huhv0");
+            MediaManager.init(getActivity(), config);
+            mediaManagerInitialized = true;
+        }
     }
 
     private void uploadToCloudinary(String filePath) {

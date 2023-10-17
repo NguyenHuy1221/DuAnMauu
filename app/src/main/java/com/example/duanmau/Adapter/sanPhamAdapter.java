@@ -161,6 +161,7 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
         spinner.setAdapter(sizeAdapter);
 
 
+
         Button btnThoat = view.findViewById(R.id.btn_SThoat);
         Button btnLuu = view.findViewById(R.id.btn_SLuu);
 
@@ -176,30 +177,13 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                int masp = MsanPham.getMasp();
-//                String tensp = edtTen.getText().toString().trim();
-//                String solg = edtSoLuong.getText().toString().trim();
-//                String giasp = edtGia.getText().toString().trim();
-//
-//                if (tensp.isEmpty()||solg.isEmpty()||giasp.isEmpty()){
-//                    Toast.makeText(context, "Vui Lòng Nhập Đủ Thông Tin", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    sanPham sp = new sanPham(masp,tensp,giasp,solg,"");
-//                    boolean check = sanPhamDAO.updateSP(sp);
-//                    if (check){
-//                        Toast.makeText(context, "Sủa Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
-//                        ArrayList<sanPham> capnhap = sanPhamDAO.getDS();
-//                        updatelist(capnhap);
-//                        dialog.dismiss();
-//                    }else {
-//                        Toast.makeText(context, "Sủa Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
 
                 int masp = MsanPham.getMasp();
                 String tensp = edtTen.getText().toString().trim();
                 String solg = edtSoLuong.getText().toString().trim();
                 String giasp = edtGia.getText().toString().trim();
+                String selectedSize = spinner.getSelectedItem().toString();
+
 
 
                 String regexTen = "[^\\d]{1,}";
@@ -249,12 +233,8 @@ public class sanPhamAdapter extends RecyclerView.Adapter<sanPhamAdapter.ViewHold
                     return;
                 }
 
-//                sanPham.setTensp(tensp);
-//                sanPham.setSoluong(Integer.parseInt(solg));
-//                sanPham.setGiasp(Integer.parseInt(giasp));
-//                sanPham.setMaanh(anh);
 
-                sanPham sp = new sanPham(masp,tensp,Integer.parseInt(giasp),Integer.parseInt(solg),"","");
+                sanPham sp = new sanPham(masp,tensp,Integer.parseInt(giasp),Integer.parseInt(solg),"",selectedSize);
                     boolean check = sanPhamDAO.updateSP(sp);
                     if (check){
                         Toast.makeText(context, "Sủa Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();

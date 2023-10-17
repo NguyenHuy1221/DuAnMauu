@@ -27,6 +27,8 @@ public class HoaDon {
         dsGioHang = new ArrayList<>();
     }
 
+
+
     public List<sanPham> getDsGioHang() {
         return dsGioHang;
     }

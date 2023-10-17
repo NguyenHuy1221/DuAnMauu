@@ -34,6 +34,8 @@ public class GioHangDao {
         return listsp;
     }
 
+
+
     public boolean ThemSP(GioHang gioHang){
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
 
@@ -54,6 +56,13 @@ public class GioHangDao {
         return true;
     }
 
+
+
+
+
+
+
+
     public boolean xoaSP(String masp){
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
         int check = sqLiteDatabase.delete("SPDC","masp=?",new String[]{String.valueOf(masp)});
@@ -70,5 +79,23 @@ public class GioHangDao {
         db.close();
         return true;
     }
+
+    public boolean CapNhatSoLuong(int idsp, String size, int soLuongMoi) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("soluong", soLuongMoi);
+
+        // Xác định điều kiện cập nhật bằng WHERE
+        String whereClause = "masp = ? AND size = ?";
+        String[] whereArgs = {String.valueOf(idsp), size};
+
+        int rowsUpdated = db.update("SPDC", values, whereClause, whereArgs);
+
+        db.close();
+
+        return rowsUpdated > 0;
+    }
+
 
 }

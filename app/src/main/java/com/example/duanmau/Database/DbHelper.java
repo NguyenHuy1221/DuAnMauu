@@ -36,13 +36,13 @@ public class DbHelper extends SQLiteOpenHelper {
         String qlNhanVien = "CREATE TABLE NHAN_VIEN(idnhanvien INTEGER PRIMARY KEY AUTOINCREMENT,tennhanvien TEXT,imagesp TEXT,sdt TEXT,diachi TEXT,ngayvaolam TEXT,idchucvu INTEGER,trangthai INTEGER,FOREIGN KEY (idchucvu) REFERENCES CHUC_VU(idchucvu))";
         db.execSQL(qlNhanVien);
         //data nhan vien
-        db.execSQL("INSERT INTO NHAN_VIEN VALUES (1,'LE THI NO','','67887655','GIALAI','11/12/2022',2,1),(2,'PHAM VAN DO','','443212','HN','11/07/2023',2,1)");
+        db.execSQL("INSERT INTO NHAN_VIEN VALUES (1,'LE THI NO','','67887655','GIALAI','11/12/2022',2,1),(2,'PHAM VAN DO','','443212','HN','11/07/2023',2,1),(3,'admin','','67887655','GIALAI','11/12/2022',1,1)");
 
 
         //tai khoan
         String qltaikhoan = "CREATE TABLE TAI_KHOAN(idtaikhoan INTEGER PRIMARY KEY AUTOINCREMENT,idnhanvien INTEGER,gmail TEXT,matkhau TEXT, FOREIGN KEY (idnhanvien) REFERENCES NHAN_VIEN(idnhanvien))";
         db.execSQL(qltaikhoan);
-        db.execSQL("INSERT INTO TAI_KHOAN VALUES (1,1,'lethino@gmail.com','no123123'),(2,2,'phanthanhdo@gmail.com','do123123')");
+        db.execSQL("INSERT INTO TAI_KHOAN VALUES (1,1,'lethino@gmail.com','no123123'),(2,2,'phanthanhdo@gmail.com','do123123'),(3,3,'admin','admin')");
 
         //chuc vu
         String chucvu = "CREATE TABLE CHUC_VU(idchucvu INTEGER PRIMARY KEY AUTOINCREMENT,tenchucvu TEXT)";
@@ -64,6 +64,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
         String spdachon = "CREATE TABLE SPDC(masp INTEGER PRIMARY KEY AUTOINCREMENT,tensp TEXT, giasp INTEGER,soluong INTEGER ,imagesp TEXT,size TEXT)";
         db.execSQL(spdachon);
+
+
+
+
     }
 
     @Override
@@ -82,4 +86,8 @@ public class DbHelper extends SQLiteOpenHelper {
             onCreate(db);
         }
     }
+
+
+
+
 }

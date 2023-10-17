@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,7 +95,7 @@ public class FragmentChiTietSanPham extends Fragment {
             @Override
             public void onClick(View v) {
                 changeButtonColor(bnt38);
-                selectedSize = "Size: 38";
+                selectedSize = String.valueOf(38);
                 updateSizeUI();
             }
         });
@@ -102,7 +103,7 @@ public class FragmentChiTietSanPham extends Fragment {
             @Override
             public void onClick(View v) {
                 changeButtonColor(bnt39);
-                selectedSize = "Size: 39";
+                selectedSize = String.valueOf(39);
                 updateSizeUI();
 
             }
@@ -111,7 +112,7 @@ public class FragmentChiTietSanPham extends Fragment {
             @Override
             public void onClick(View v) {
                 changeButtonColor(bnt40);
-                selectedSize = "Size: 40";
+                selectedSize = String.valueOf(40);
                 updateSizeUI();
 
 
@@ -121,7 +122,7 @@ public class FragmentChiTietSanPham extends Fragment {
             @Override
             public void onClick(View v) {
                 changeButtonColor(bnt41);
-                selectedSize = "Size: 41";
+                selectedSize = String.valueOf(41);
                 updateSizeUI();
             }
         });
@@ -179,12 +180,12 @@ public class FragmentChiTietSanPham extends Fragment {
             int giaSanPham1 = bundle.getInt("giasp");
 
 
-
             // Kiểm tra xem đã chọn kích thước (size) chưa
             if (selectedSize == null) {
                 Toast.makeText(getContext(), "Vui lòng chọn size", Toast.LENGTH_SHORT).show();
                 return;
             }
+
 
             // Định dạng số tiền
             DecimalFormat formatter = new DecimalFormat("###,###,###");
@@ -224,39 +225,61 @@ public class FragmentChiTietSanPham extends Fragment {
         btnM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Lấy thông tin từ Bundle
                 Bundle bundle = getArguments();
                 if (bundle != null) {
-                    int id = idgh+1;
                     int idsp = bundle.getInt("masp");
                     String tenSanPham = bundle.getString("tensp");
                     int giaSanPham = bundle.getInt("giasp");
                     int soLuongSanPham = Integer.parseInt(txtSo.getText().toString());
                     String imageUrl = bundle.getString("image");
                     int soluong = bundle.getInt("soluong");
+                    String fSize = bundle.getString("size");
+
+
                     String size = selectedSize;
 
-                    if(so>soluong){
+
+                    if (so > soluong) {
                         Toast.makeText(getContext(), "Số lượng trong kho không đủ", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    GioHang gioHang = new GioHang(idsp,tenSanPham,giaSanPham,soLuongSanPham,imageUrl,size);
+                    // Lấy danh sách sản phẩm trong giỏ hàng
+                    ArrayList<GioHang> gioHangList = gioHangDao.getDS();
 
-                    boolean check = gioHangDao.ThemSP(gioHang);
-                    if (check){
-                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }else {
-                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
+                    // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+                    boolean found = false;
+                    for (GioHang gioHang : gioHangList) {
+                        if (gioHang.getMasp() == idsp && gioHang.getSize().equals(size)) {
+                            gioHang.setSoluong(gioHang.getSoluong() + soLuongSanPham);
+                            found = true;
+                            break;
+                        }
                     }
 
+                    if (!found) {
+                        // Sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm mới
+                        GioHang gioHang = new GioHang(idsp, tenSanPham, giaSanPham, soLuongSanPham, imageUrl, size);
+                        boolean check = gioHangDao.ThemSP(gioHang);
+                        if (check) {
+                            Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Thêm sản phẩm thất bại", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // Sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng
+                        boolean updateResult = gioHangDao.CapNhatSoLuong(idsp, size, soLuongSanPham);
+                        if (updateResult) {
+                            Toast.makeText(getContext(), "Cập nhật Số Lượng Thành Công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Cập nhật Số Lượng Thất Bại", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
 
-
+                // Đến fragment thanh toán
                 FragmentThanhToan thanhToanFragment = new FragmentThanhToan();
-
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.layout_navigation, thanhToanFragment);
                 transaction.addToBackStack(null);
@@ -265,6 +288,53 @@ public class FragmentChiTietSanPham extends Fragment {
                 dialog.dismiss();
             }
         });
+
+
+
+//        btnM.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // Lấy thông tin từ Bundle
+//                Bundle bundle = getArguments();
+//                if (bundle != null) {
+//                    int id = idgh+1;
+//                    int idsp = bundle.getInt("masp");
+//                    String tenSanPham = bundle.getString("tensp");
+//                    int giaSanPham = bundle.getInt("giasp");
+//                    int soLuongSanPham = Integer.parseInt(txtSo.getText().toString());
+//                    String imageUrl = bundle.getString("image");
+//                    int soluong = bundle.getInt("soluong");
+//                    String size = selectedSize;
+//
+//                    if(so>soluong){
+//                        Toast.makeText(getContext(), "Số lượng trong kho không đủ", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//
+//                    GioHang gioHang = new GioHang(idsp,tenSanPham,giaSanPham,soLuongSanPham,imageUrl,size);
+//
+//                    boolean check = gioHangDao.ThemSP(gioHang);
+//                    if (check){
+//                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thành Công", Toast.LENGTH_SHORT).show();
+//                        dialog.dismiss();
+//                    }else {
+//                        Toast.makeText(getContext(), "Thêm Sản Phẩm Thất Bại", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                }
+//
+//
+//                FragmentThanhToan thanhToanFragment = new FragmentThanhToan();
+//
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.layout_navigation, thanhToanFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//
+//                dialog.dismiss();
+//            }
+//        });
 
         dialog.show();
     }

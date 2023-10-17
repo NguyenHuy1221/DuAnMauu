@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#E6B7B7"
+    android:background="#CCF8FF"
     android:layout_marginBottom="12dp">
 
     <LinearLayout
@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:layout_marginStart="8dp"
-        android:background="#E6B7B7"
+        android:background="#CCF8FF"
         android:layout_margin="10dp">
 
         <TextView
