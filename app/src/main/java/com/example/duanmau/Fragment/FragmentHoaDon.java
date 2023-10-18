@@ -11,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.duanmau.Adapter.ChiTietHoaDonAdapter;
+import com.example.duanmau.Adapter.showhoadonpass2;
 import com.example.duanmau.DAO.ChiTietHoaDonDao;
 import com.example.duanmau.R;
 import com.example.duanmau.model.ChiTietHoaDon;
+import com.example.duanmau.model.HoaDon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class FragmentHoaDon extends Fragment {
@@ -23,6 +26,8 @@ public class FragmentHoaDon extends Fragment {
     private RecyclerView recyclerView;
     private ChiTietHoaDonAdapter chiTietHoaDonAdapter;
     private ChiTietHoaDonDao chiTietHoaDonDao;
+    private showhoadonpass2  show2;
+    private List<String> thongTinHoaDonList;
 
 
     @Override
@@ -35,10 +40,17 @@ public class FragmentHoaDon extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         chiTietHoaDonDao = new ChiTietHoaDonDao(getContext());
 
-        ArrayList<ChiTietHoaDon> chiTietHoaDonList = chiTietHoaDonDao.layDanhSachChiTietHoaDon();
+//        List<HoaDon> hoaDonList = chiTietHoaDonDao.layDanhSachHoaDonVaSanPham();
 
-        chiTietHoaDonAdapter = new ChiTietHoaDonAdapter(chiTietHoaDonList);
-        recyclerView.setAdapter(chiTietHoaDonAdapter);
+        thongTinHoaDonList = new ArrayList<>();
+        thongTinHoaDonList = chiTietHoaDonDao.layThongTinHoaDon();
+
+//        ArrayList<ChiTietHoaDon> chiTietHoaDonList = chiTietHoaDonDao.layDanhSachChiTietHoaDon();
+
+//        chiTietHoaDonAdapter = new ChiTietHoaDonAdapter(chiTietHoaDonList);
+        show2 = new showhoadonpass2(getContext(),thongTinHoaDonList);
+        recyclerView.setAdapter(show2);
+//        recyclerView.setAdapter(chiTietHoaDonAdapter);
 
         return view;
     }

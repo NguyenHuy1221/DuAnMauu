@@ -11,6 +11,7 @@ public class HoaDon {
     private String tongtien;
 
     private List<sanPham> dsGioHang = new ArrayList<>();
+    private List<String> danhSachSanPham;
 
 
 
@@ -46,6 +47,14 @@ public class HoaDon {
 //
 //    }
 
+
+    public List<String> getDanhSachSanPham() {
+        return danhSachSanPham;
+    }
+
+    public void setDanhSachSanPham(List<String> danhSachSanPham) {
+        this.danhSachSanPham = danhSachSanPham;
+    }
 
     public HoaDon(int idhoadon, int idkhachhang, int idnhanvien, String ngay, String tongtien) {
         this.idhoadon = idhoadon;

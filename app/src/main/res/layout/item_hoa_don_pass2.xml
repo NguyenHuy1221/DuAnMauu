@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_hoa_don.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewTenKhachHang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên Khách hàng: John Doe"
+        android:textSize="16sp"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/textViewSDT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SĐT: 1234567890"
+        android:textSize="14sp"
+        android:textColor="#333" />
+
+    <TextView
+        android:id="@+id/textViewDiaChi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Địa chỉ: 123 Main St, City"
+        android:textSize="14sp"
+        android:textColor="#333" />
+
+    <TextView
+        android:id="@+id/textViewNgay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngày: 2023-10-18"
+        android:textSize="14sp"
+        android:textColor="#333" />
+
+    <TextView
+        android:id="@+id/textViewThongTinSanPham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sản phẩm: Product 1, Product 2, Product 3"
+        android:textSize="14sp"
+        android:textColor="#333" />
+
+    <TextView
+        android:id="@+id/textViewTongTien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tổng tiền: $100.00"
+        android:textSize="16sp"
+        android:textColor="#f00" />
+</LinearLayout>
+
