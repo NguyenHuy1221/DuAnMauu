@@ -79,16 +79,16 @@ public class taikhoanDAO {
     public ArrayList<login> login1() {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         ArrayList<login> listSP = new ArrayList<>();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT TAI_KHOAN.idtaikhoan,TAI_KHOAN.idnhanvien,TAI_KHOAN.gmail,TAI_KHOAN.matkhau,NHAN_VIEN.idchucvu   FROM TAI_KHOAN JOIN NHAN_VIEN ON TAI_KHOAN.idnhanvien = NHAN_VIEN.idnhanvien",null);
-
-
-        if (cursor.getCount() >0) {
-            cursor.moveToFirst();
-            do {
-                listSP.add(new login(cursor.getInt(0),cursor.getInt(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4)) );
-
-            }while (cursor.moveToNext());
-        }
+//        Cursor cursor = sqLiteDatabase.rawQuery("SELECT TAI_KHOAN.idtaikhoan,TAI_KHOAN.idnhanvien,TAI_KHOAN.gmail,TAI_KHOAN.matkhau,NHAN_VIEN.idchucvu   FROM TAI_KHOAN JOIN NHAN_VIEN ON TAI_KHOAN.idnhanvien = NHAN_VIEN.idnhanvien",null);
+//
+//
+//        if (cursor.getCount() >0) {
+//            cursor.moveToFirst();
+//            do {
+//                listSP.add(new login(cursor.getInt(0),cursor.getInt(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4)) );
+//
+//            }while (cursor.moveToNext());
+//        }
         return listSP;
 
 

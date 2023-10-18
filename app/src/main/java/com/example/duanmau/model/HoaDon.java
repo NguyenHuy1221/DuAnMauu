@@ -9,6 +9,7 @@ public class HoaDon {
     private int idnhanvien;
     private String ngay;
     private String tongtien;
+    private int idmkm;
 
     private List<sanPham> dsGioHang = new ArrayList<>();
     private List<String> danhSachSanPham;
@@ -56,12 +57,13 @@ public class HoaDon {
         this.danhSachSanPham = danhSachSanPham;
     }
 
-    public HoaDon(int idhoadon, int idkhachhang, int idnhanvien, String ngay, String tongtien) {
+    public HoaDon(int idhoadon, int idkhachhang, int idnhanvien, String ngay, String tongtien, int idmkm) {
         this.idhoadon = idhoadon;
         this.idkhachhang = idkhachhang;
         this.idnhanvien = idnhanvien;
         this.ngay = ngay;
         this.tongtien = tongtien;
+        this.idmkm = idmkm;
     }
 
     public int getIdhoadon() {
@@ -102,5 +104,13 @@ public class HoaDon {
 
     public void setTongtien(String tongtien) {
         this.tongtien = tongtien;
+    }
+
+    public int getIdmkm() {
+        return idmkm;
+    }
+
+    public void setIdmkm(int idmkm) {
+        this.idmkm = idmkm;
     }
 }

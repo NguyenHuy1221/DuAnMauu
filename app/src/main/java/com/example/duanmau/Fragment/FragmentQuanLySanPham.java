@@ -89,13 +89,13 @@ public class FragmentQuanLySanPham extends Fragment {
         recyclerView.setAdapter(sanPhamAdapter);
         SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("data", MODE_PRIVATE);
 
-        int idchucvu = sharedPreferences2.getInt("chucvu",3);
-        boolean check = true;
-        if (idchucvu != 1){
-        check = false;
-
-        }
-            if (check == true){
+//        int idchucvu = sharedPreferences2.getInt("chucvu",3);
+//        boolean check = true;
+//        if (idchucvu != 1){
+//        check = false;
+//
+//        }
+//            if (check == true){
                 // thêm san phẩm
                 floatAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -103,9 +103,9 @@ public class FragmentQuanLySanPham extends Fragment {
                         themSP();
                     }
                 });
-            } else {
-                Toast.makeText(getContext(), "bạn không có quyền sử dụng chức năng này", Toast.LENGTH_SHORT).show();
-            }
+//            } else {
+//                Toast.makeText(getContext(), "bạn không có quyền sử dụng chức năng này", Toast.LENGTH_SHORT).show();
+//            }
 
 
 //aaa

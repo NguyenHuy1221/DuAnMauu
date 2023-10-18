@@ -51,7 +51,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
         // hoa don
-        String qlHoaDon = "CREATE TABLE HOA_DON(idhoadon INTEGER PRIMARY KEY AUTOINCREMENT,idkhachhang INTEGER REFERENCES KHACH_HANG(idkhachhang),idnhanvien INTEGER REFERENCES NHAN_VIEN(idnhanvien) ,ngay date,tongtien TEXT)";
+        String qlHoaDon = "CREATE TABLE HOA_DON(idhoadon INTEGER PRIMARY KEY AUTOINCREMENT,idkhachhang INTEGER REFERENCES KHACH_HANG(idkhachhang),idnhanvien INTEGER REFERENCES NHAN_VIEN(idnhanvien) ,ngay date,tongtien TEXT,idmkm INTEGER REFERENCES KHUYEN_MAI(idmkm))";
         db.execSQL(qlHoaDon);
         // data hoadon
 //        db.execSQL("INSERT INTO HOA_DON VALUES (1,1,1,'03/10/2023','3000000'),(2,2,2,'10/09/2023','6000000')");
@@ -65,8 +65,9 @@ public class DbHelper extends SQLiteOpenHelper {
         String spdachon = "CREATE TABLE SPDC(masp INTEGER PRIMARY KEY AUTOINCREMENT,tensp TEXT, giasp INTEGER,soluong INTEGER ,imagesp TEXT,size TEXT)";
         db.execSQL(spdachon);
 
-
-
+        String khuyenmai = "CREATE TABLE KHUYEN_MAI(idmkm INTEGER PRIMARY KEY AUTOINCREMENT,tenkm TEXT, tienkhuyenmai INTEGER)";
+        db.execSQL(khuyenmai);
+        db.execSQL("INSERT INTO KHUYEN_MAI VALUES (1,'50km',50000),(2,'100k',100000),(3,'150k',150000),(4,'200k',200000)");
 
     }
 
@@ -82,6 +83,7 @@ public class DbHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS SPDC");
             db.execSQL("DROP TABLE IF EXISTS TAI_KHOAN");
             db.execSQL("DROP TABLE IF EXISTS CHUC_VU");
+            db.execSQL("DROP TABLE IF EXISTS KHUYEN_MAI");
 
             onCreate(db);
         }

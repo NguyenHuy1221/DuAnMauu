@@ -8,6 +8,7 @@ public class ChiTietHoaDon {
     private int soluong;
     private int dongia;
 
+
     public ChiTietHoaDon(){
 
     }

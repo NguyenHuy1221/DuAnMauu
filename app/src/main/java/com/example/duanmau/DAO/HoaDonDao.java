@@ -28,6 +28,7 @@ public class HoaDonDao {
         contentValues.put("idnhanvien",hoaDon.getIdnhanvien());
         contentValues.put("ngay",hoaDon.getNgay());
         contentValues.put("tongtien",hoaDon.getTongtien());
+        contentValues.put("idmkm",hoaDon.getIdmkm());
 
         long check = sqLiteDatabase.insert("HOA_DON",null,contentValues);
         return check;

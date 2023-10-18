@@ -61,6 +61,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
     private EditText phoneKH;
     private EditText address;
     private KhachHangDao khachHangDao;
+    private EditText makhuyenmai;
     private HoaDonDao hoaDonDao;
     private ChiTietHoaDonDao chiTietHoaDonDao;
 
@@ -76,6 +77,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
         nameKH = view.findViewById(R.id.edt_nameKH);
         phoneKH = view.findViewById(R.id.edt_phoneKH);
         address = view.findViewById(R.id.edt_address);
+        makhuyenmai = view.findViewById(R.id.edt_khuyenmai);
 
         khachHangDao = new KhachHangDao(getContext());
         hoaDonDao = new HoaDonDao(getContext());
@@ -112,6 +114,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                 String name = nameKH.getText().toString();
                 String phone = phoneKH.getText().toString();
                 String addres = address.getText().toString();
+                int mkm = Integer.parseInt(makhuyenmai.getText().toString());
 
 
                 String regexTen = "[^\\d]{1,}";
@@ -168,6 +171,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                     hoaDon.setNgay(ngay);
 
                     hoaDon.setTongtien(updateTotalPrice());
+                    hoaDon.setIdmkm(mkm);
 
                     long ktHD = hoaDonDao.themHoaDon(hoaDon);
                     int totalPrice = 0;
@@ -192,6 +196,7 @@ public class FragmentThanhToan extends Fragment implements TotalPriceUpdateListe
                             long themCTHD = chiTietHoaDonDao.themChiTietHoaDon(chiTietHoaDon);
                             if (themCTHD != -1) {
                                 Toast.makeText(getContext(), " mua sản phầm thành công", Toast.LENGTH_SHORT).show();
+                                chiTietHoaDonDao.updateSanPham(hoaDon.getIdhoadon(),hoaDon.getIdhoadon());
                             } else {
                                 Toast.makeText(getContext(), "Thất bại", Toast.LENGTH_SHORT).show();
                             }
